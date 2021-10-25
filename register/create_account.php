@@ -9,6 +9,7 @@
     <title>Document</title>
 </head>
 <body>
+    
     <section class="vh-100 bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/new-templates/search-box/img4.jpg');">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100">
@@ -18,8 +19,22 @@
                 <div class="card-body p-5">
                 <h2 class="text-uppercase text-center mb-5">Tạo 1 tài khoản</h2>
 
-                <form action="process-account.php" method="post">
+                <form action="process_account.php" method="post">
                     <div class="form-outline mb-4">
+                        <?php
+                            if(isset($_GET['response'])){
+                              if($_GET['response'] == 'existed'){
+                                echo "<p class='text-danger'>email đã tồn tại</p>";
+                              }
+                            }
+                        ?>
+                        <?php
+                            if(isset($_GET['response'])){
+                              if($_GET['response'] == 'success'){
+                                echo "<p class='text-danger'>Xác nhận tài khoản trong email của bạn</p>";
+                              }
+                            }
+                        ?>
                     <input type="email" id="email" class="form-control form-control-lg" name="email" />
                     <label class="form-label" for="email">Nhập email của bạn</label>
                     </div>
@@ -33,7 +48,13 @@
                     <input type="password" id="pass2" class="form-control form-control-lg" name="pass2" />
                     <label class="form-label" for="pass2">Xác nhận mật khẩu</label>
                     </div>
-
+                    <?php
+                        if(isset($_GET['response'])){
+                            if($_GET['response']=='error'){
+                                echo "<p class='text-danger'>Vui lòng xác nhận</p>";
+                            }
+                        }
+                    ?>
                     <div class="form-check d-flex justify-content-center mb-5">
                     <input
                         class="form-check-input me-2"
@@ -48,13 +69,13 @@
                     </div>
 
                     <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="btnRegister">Register</button>
+                    <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="btn_account">Đăng ký</button>
                     </div>
 
                     <p class="text-center text-muted mt-5 mb-0">Bạn đã có tài khoản? <a href="#!" class="fw-bold text-body"><u>Đăng nhập tại đây.</u></a></p>
 
                 </form>
-
+                
                 </div>
             </div>
             </div>
