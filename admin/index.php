@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Đây là trang người dùng</h2>
+    <h2>đây là trang admin</h2>
 </body>
 </html>

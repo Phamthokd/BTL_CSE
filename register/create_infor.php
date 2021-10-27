@@ -83,6 +83,27 @@
                     <input type="text" id="email" name="email" class="form-control" value=<?php if (isset($_GET['accout'])) {
         $email = $_GET['accout'];
         echo $email;} ?> readonly>
+        <div class="form-group">
+                <label for="group" class="control-label">Nhóm</label>
+                <select name="group" id="group">
+                    <?php
+                        //bước 1: kết nối
+                        require("../config/db.php");
+                        //bước 2:truy vấn
+                        $sql = "SELECT * FROM group_users";
+                        $result = mysqli_query($conn,$sql);
+                        // bước 3: sử lý kết quả
+                        if(mysqli_num_rows($result)>0){
+                            while($row = mysqli_fetch_assoc($result)){
+                                echo '<option value='.$row['group_id'].'>'.$row['group_name'].'</option>';
+                            }
+                        }
+                                // bước 4: đóng kết nối
+                        mysqli_close($conn);
+                    ?>
+                </select>
+                
+            </div>
                     
                 </div>
             </div>

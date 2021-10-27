@@ -7,15 +7,13 @@
     $gender = $_POST['gender'];
     $phone_number = $_POST['phone_number'];
     $email = $_POST['email'];
+    $group = $_POST['group'];
     //B1: kết nối
     include('../config/db.php');
     //B2 truy cập
-    $sql = "INSERT INTO infor_users (first_name,last_name,age,address,date,phone_number,gender,email) VALUES ('$first_name','$last_name','$age','$address','$date','$phone_number','$gender','$email')";
+    $sql = "INSERT INTO infor_users (first_name,last_name,age,address,date,phone_number,gender,email,group_id) VALUES ('$first_name','$last_name','$age','$address','$date','$phone_number','$gender','$email','$group')";
     $result = mysqli_query($conn,$sql);
     if($result==true){
         header('Location:activation.php?accout='.$email.'');
     }
-        
-    
-
 ?>

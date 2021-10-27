@@ -28,7 +28,7 @@
                     $std=rand();
                     $code=md5($std);
                     $pass_hash = password_hash($pass1,PASSWORD_DEFAULT);
-                    $sql_2 = "INSERT INTO users (email, password,user_level) VALUES ('$email','$pass_hash','$code')";
+                    $sql_2 = "INSERT INTO users (email, password, code) VALUES ('$email','$pass_hash','$code')";
                     $result_2 = mysqli_query($conn,$sql_2);
 
                     $mail = new PHPMailer(true);
@@ -85,9 +85,6 @@
                 
         }
     }
-
-
-
     else{
     $values1 = "error";
     header("location:create_account.php?response=$values1");}
