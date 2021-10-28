@@ -15,9 +15,9 @@
         if(password_verify($pass,$pass_saved) and $row['status']==1 and $row['user_level']==0 )//kiểm tra mk nhập và mk trên hệ thống có trùng ko và thêm đk là status phaiar bằng 1
         {
             $_SESSION['login_ok']=$email;
-            header('Location: http://localhost:88/BTL_CSE/');
+            header('Location: http://localhost:88/BTL_CSE/users/');
             }
-        if(password_verify($pass,$pass_saved) and $row['status']==1 and $row['user_level']==1 )//kiểm tra mk nhập và mk trên hệ thống có trùng ko và thêm đk là status phaiar bằng 1
+        elseif(password_verify($pass,$pass_saved) and $row['status']==1 and $row['user_level']==1 )//kiểm tra mk nhập và mk trên hệ thống có trùng ko và thêm đk là status phaiar bằng 1
         {
             $_SESSION['login_ok']=$email;
             header('Location: http://localhost:88/BTL_CSE/admin/');
@@ -25,7 +25,7 @@
         else{
             $values = "false1";
             header("Location:login.php?response=$values");
-    }
+            }
 }
     else
     {
