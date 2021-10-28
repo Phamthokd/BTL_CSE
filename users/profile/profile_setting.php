@@ -88,6 +88,16 @@
                     <div class="p-3 py-5">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right">Thay đổi thông tin</h4>
+                            <?php
+                            $conn = mysqli_connect('localhost', 'root', '', 'btl_ql');
+                            $infor_id = $_GET['infor_id'];
+                            $slt = mysqli_query($conn, "Select * from infor_id where infor_id = '$infor_id'");
+                            if (mysqli_num_rows($slt) > 0) {
+                                $row = mysqli_fetch_assoc($slt);
+                            } else {
+                                header('index.php');
+                            }
+                            ?>
                         </div>
                         <form action="update_infor.php" method="post">
                             <div class="row mt-2">

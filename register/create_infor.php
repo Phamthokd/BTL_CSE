@@ -77,12 +77,27 @@
                     </div>
                 </div>
             </div> <!-- /.form-group -->
+            
             <div class="form-group">
-                <label for="email" class="col-sm-3 control-label">email</label>
+                <label for="userid" class="col-sm-3 control-label">ID</label>
                 <div class="col-sm-9">
-                    <input type="text" id="email" name="email" class="form-control" value=<?php if (isset($_GET['accout'])) {
-        $email = $_GET['accout'];
-        echo $email;} ?> readonly>
+                    <input type="text" id="userid" name="userid" class="form-control" value=
+                    <?php if (isset($_GET['accout'])) {
+                        $email = $_GET['accout'];
+                        require("../config/db.php");
+                        $sql = "SELECT * FROM `users` WHERE `email` LIKE '$email'";
+                        $result = mysqli_query($conn,$sql);
+                        if(mysqli_num_rows($result)>0){
+                            while($row = mysqli_fetch_assoc($result)){
+                                $ID = $row['userid'];
+                                echo ''.$ID.'';
+
+                                }
+                        }
+                        } 
+                        mysqli_close($conn);
+                        ?>
+         readonly>
         <div class="form-group">
                 <label for="group" class="control-label">Nhóm</label>
                 <select name="group" id="group">
