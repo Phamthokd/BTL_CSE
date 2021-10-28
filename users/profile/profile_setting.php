@@ -1,13 +1,17 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['login_ok']))
+        header("Location: http://localhost:88/BTL_CSE/login/login.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <link
       href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css"
-      rel="stylesheet"
+      rel="stylesheet"/>
       <link
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         rel="stylesheet"
@@ -22,9 +26,9 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
         rel="stylesheet"
       />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
-</head>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
 <body>
 <div class="swap">
     <header class="pb-5">
@@ -62,7 +66,7 @@
                   <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                  <li><a class="dropdown-item" href="#">New project...</a></li>
+                  
                   <li><a class="dropdown-item" href="#">Settings</a></li>
                   <li><a class="dropdown-item" href="#">Profile</a></li>
                   <li><hr class="dropdown-divider"></li>
@@ -89,17 +93,42 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right">Thay đổi thông tin</h4>
                             <?php
-                            $conn = mysqli_connect('localhost', 'root', '', 'btl_ql');
-                            $infor_id = $_GET['infor_id'];
-                            $slt = mysqli_query($conn, "Select * from infor_id where infor_id = '$infor_id'");
-                            if (mysqli_num_rows($slt) > 0) {
-                                $row = mysqli_fetch_assoc($slt);
-                            } else {
-                                header('index.php');
-                            }
+                              $conn = mysqli_connect('localhost','root','','btl_ql','3306');
+                                              
+                              if(!$conn){
+                                die("kết nối thất bại. Kiểm tra lại");
+                              }
+                              $userid = $_GET['id'];
+                              $slt = mysqli_query($conn, "Select * from infor_users where infor_id = '$userid'");
+                              if (mysqli_num_rows($slt) > 0) {
+                                  $row = mysqli_fetch_assoc($slt);
+                              } else {
+                                  header('index.php');
+                              }
+                            ?>
+                            <?php
+                                if (isset($_POST['btn_save'])) {
+                                $first_name = $_POST['first_name'];
+                                $last_name = $_POST['last_name'];
+                                $age = $_POST['age'];
+                                $address = $_POST['address'];
+                                $date = $_POST['date'];
+                                $gender = $_POST['gender'];
+                                $phone_number = $_POST['phone_number'];
+                                
+                                    $update = mysqli_query($conn, "update infor_users set first_name = '$first_name', last_name='$last_name', 
+                                    age='$age',address = '$address',gender = '$gender', phone_number = '$phone_number'
+                                    where infor_id = '$userid'");
+                                    if ($update == TRUE) {
+                                        echo "thành công";
+                                    } else {    
+                                        echo "thất bại";
+                                    }
+                                }
+
                             ?>
                         </div>
-                        <form action="update_infor.php" method="post">
+                        <form action="" method="post">
                             <div class="row mt-2">
                                 <div class="col-md-6"><label class="labels">Họ</label><input type="text" class="form-control" placeholder="Họ" value="" name="first_name"></div>
                                 <div class="col-md-6"><label class="labels">Tên</label><input type="text" class="form-control" value="" placeholder="Tên" name="last_name"></div>
@@ -114,12 +143,17 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <label class="radio-inline">
-                                                <input type="radio" id="femaleRadio" name="gender" <?php if (isset($gender) && $gender=="nữ") echo "checked";?> value="Female">Nữ
+                                                <input type="radio" id="femaleRadio" name="gender" <?php if (isset($gender) && $gender=="nữ") echo "checked";?> value="nữ">Nữ
                                             </label>
                                         </div>
                                         <div class="col-sm-4">
                                             <label class="radio-inline">
-                                                <input type="radio" id="maleRadio" name="gender" <?php if (isset($gender) && $gender=="nam") echo "checked";?> value="Male">Nam
+                                                <input type="radio" id="maleRadio" name="gender" <?php if (isset($gender) && $gender=="nam") echo "checked";?> value="nam">Nam
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="radio-inline">
+                                                <input type="radio" id="maleRadio" name="gender" <?php if (isset($gender) && $gender=="khác") echo "checked";?> value="khác">khác
                                             </label>
                                         </div>
                                     </div>   
