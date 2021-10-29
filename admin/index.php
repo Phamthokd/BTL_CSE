@@ -26,7 +26,7 @@
     <title>Document</title>
 </head>
 <body>
-
+  đây là trang admin
 
 </body>
 </html>

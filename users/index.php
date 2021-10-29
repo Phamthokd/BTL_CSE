@@ -1,178 +1,139 @@
-<?php
-    session_start();
-    if(!isset($_SESSION['login_ok']))
-        header("Location: http://localhost:88/BTL_CSE/login/login.php");
-?>
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link
-      href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css"
-      rel="stylesheet"/>
-      <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        rel="stylesheet"
-      />
-      <!-- Google Fonts -->
-      <link
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-        rel="stylesheet"
-      />
-      <!-- MDB -->
-      <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
-        rel="stylesheet"
-      />
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  </head>
-  <body>
+<html>
+<head>
+<link rel="stylesheet" href="fullcalendar/fullcalendar.min.css" />
+<script src="fullcalendar/lib/jquery.min.js"></script>
+<script src="fullcalendar/lib/moment.min.js"></script>
+<script src="fullcalendar/fullcalendar.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="js/my_js.js"></script>
+<style>
+#calendar {
+    width: 700px;
+    margin: 0 auto;
+}
+
+.response {
+    height: 60px;
+}
+
+.success {
+    background: #cdf3cd;
+    padding: 10px 60px;
+    border: #c3e6c3 1px solid;
+    display: inline-block;
+}
+</style>
+</head>
+<body>
     <div class="swap">
-      <header class="pb-5">
-<!-- Topbar -->
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <header class="pb-5">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-<!-- Sidebar Toggle (Topbar) -->
-<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-    <i class="fa fa-bars"></i>
-</button>
+            <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
 
-<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-  <li class="nav-item active">
-    <a class="nav-link" aria-current="page" href="#">Trang chủ</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Thông tin cá nhân</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Trợ giúp</a>
-  </li>
-</ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" aria-current="page" href="#">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Thông tin cá nhân</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Trợ giúp</a>
+                </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
 
-<!-- Topbar Navbar -->
-<ul class="navbar-nav ml-auto">
-
-    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-    <li class="nav-item dropdown no-arrow d-sm-none">
-        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-search fa-fw"></i>
-        </a>
-        <!-- Dropdown - Messages -->
-        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-            aria-labelledby="searchDropdown">
-            <form class="form-inline mr-auto w-100 navbar-search">
-                <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small"
-                        placeholder="Search for..." aria-label="Search"
-                        aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
+                <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                <li class="nav-item dropdown no-arrow d-sm-none">
+                    <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-search fa-fw"></i>
+                    </a>
+                    <!-- Dropdown - Messages -->
+                    <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                        aria-labelledby="searchDropdown">
+                        <form class="form-inline mr-auto w-100 navbar-search">
+                            <div class="input-group">
+                                <input type="text" class="form-control bg-light border-0 small"
+                                    placeholder="Search for..." aria-label="Search"
+                                    aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </div>
-            </form>
-        </div>
-    </li>
+                </li>
 
-    <!-- Nav Item - Alerts -->
-    <li class="nav-item dropdown no-arrow mx-1">
-        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-bell fa-fw"></i>
-            <!-- Counter - Alerts -->
-            <span class="badge badge-danger badge-counter">3+</span>
-        </a>
-        <!-- Dropdown - Alerts -->
-        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-            aria-labelledby="alertsDropdown">
-            <h6 class="dropdown-header">
-                Alerts Center
-            </h6>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                        <i class="fas fa-file-alt text-white"></i>
+            <!-- Nav Item - Alerts -->
+                <li class="nav-item dropdown no-arrow mx-1">
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter">3+</span>
+                </a>
+                <!-- Dropdown - Alerts -->
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                    Thông báo
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-primary">
+                            <i class="fas fa-file-alt text-white"></i>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">Bạn có một công việc mới</span>
-                </div>
-            </a>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                        <i class="fas fa-donate text-white"></i>
+                    <div>
+
+                        <div class="small text-gray-500"></div>
+                        <span class="font-weight-bold"></span>
                     </div>
+                </a>
                 </div>
-                <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    Bạn vừa được giao một công việc
+                </li>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                
+                </span>
+                <img class="img-profile rounded-circle"
+                    src="https://github.com/mdo.png" width="32" height="32">
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="http://localhost:88/BTL_CSE/users/profile/profile_setting.php?id=<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>sửa thông tin</a>
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="http://localhost:88/BTL_CSE/users/profile/profile_setting.php?id="><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Đăng xuất</a>
                 </div>
-            </a>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                        <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                </div>
-                <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Bạn vừa có một công việc mới
-                </div>
-            </a>
-            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-        </div>
-    </li>
+                </li>
 
-    <!-- Nav Item - User Information -->
-    <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-            <?php
-              include('../config/db.php');
-              if(isset($_GET['email']))
-              $email=$_GET['email'];
-              $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and b.email LIKE '$email'";
-              $result = mysqli_query($conn,$sql);
-              if(mysqli_num_rows($result)>0){
-                while($row = mysqli_fetch_assoc($result)){
-                  echo 'Xin chào '.$row['last_name'].'';}}
-                  ?>
-            </span>
-            <img class="img-profile rounded-circle"
-                src="https://github.com/mdo.png" width="32" height="32">
-        </a>
-        <!-- Dropdown - User Information -->
-        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-            aria-labelledby="userDropdown">
-            <?php
-                    include('../config/db.php');
-                    if(isset($_GET['email']))
-                    $email=$_GET['email'];
-                    $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and b.email LIKE '$email'";
-                    $result = mysqli_query($conn,$sql);
-                    if(mysqli_num_rows($result)>0){
-                      while($row = mysqli_fetch_assoc($result)){?>
-                    <a class="dropdown-item" href="http://localhost:88/BTL_CSE/users/profile/profile_setting.php?id=<?php echo $row['infor_id'];?>"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>sửa thông tin</a>
-
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="http://localhost:88/BTL_CSE/users/profile/profile_setting.php?id=<?php echo $row['infor_id'];}}?>"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Đăng xuất</a>
-        </div>
-    </li>
-
-</ul>
-
-</nav>
-<!-- End of Topbar -->      
-
-              <!-- Background image -->
-            <div
+            </ul>
+        </nav>
+        <div
               class="p-5 text-center bg-image"
               style="background-image: url('https://mdbootstrap.com/img/new/slides/041.jpg'); height: 200px;">
               <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
@@ -183,55 +144,20 @@
                 </div>
               </div>
             </div>
-          </div>
+            </div>
         </div>
       </div>
       <!-- Background image -->
-      </header>
-      <div class="main">
-      <div class="container ">
-        <div class="row">
-          <div class="col-md-12 ">
-              <div id="calendar"></div>
-              <script
-                  src="https://code.jquery.com/jquery-3.6.0.min.js"
-                  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-                  crossorigin="anonymous"></script>
-                <script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js"></script>
-                <?php
-                    function getMessage() {
-                      // Ham tra ve du lieu
-                    }
-                ?>
-                <script>
-                  document.addEventListener('DOMContentLoaded', function () {
-                    var calendarEl = document.getElementById('calendar');
-                    var events = '<?php echo getMessage() ?>';
-                    var calendar = new FullCalendar.Calendar(calendarEl, {
-                      initialView: 'dayGridMonth',
-                      initialDate: '2021-10-07',
-                      headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth',
-                      },
-                      events: [
-                      
-                      ],
-                    });
-                    calendar.render();
-                  });
-                </script>
+    </header>
 
-                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+        <div class="response"></div>
+        <div id='calendar'></div>
     </div>
-  </body>
+
+    
+</body>
+
+
 </html>
+

@@ -66,12 +66,17 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <label class="radio-inline">
-                                <input type="radio" id="femaleRadio" name="gender" <?php if (isset($gender) && $gender=="nữ") echo "checked";?> value="Female">Nữ
+                                <input type="radio" id="femaleRadio" name="gender" <?php if (isset($gender) && $gender=="nữ") echo "checked";?> value="nữ">Nữ
                             </label>
                         </div>
                         <div class="col-sm-4">
                             <label class="radio-inline">
-                                <input type="radio" id="maleRadio" name="gender" <?php if (isset($gender) && $gender=="nam") echo "checked";?> value="Male">Nam
+                                <input type="radio" id="maleRadio" name="gender" <?php if (isset($gender) && $gender=="nam") echo "checked";?> value="nam">Nam
+                            </label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="radio-inline">
+                                <input type="radio" id="maleRadio" name="gender" <?php if (isset($gender) && $gender=="khác") echo "checked";?> value="khác">Nam
                             </label>
                         </div>
                     </div>
