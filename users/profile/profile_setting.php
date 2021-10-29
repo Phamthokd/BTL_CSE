@@ -51,7 +51,7 @@
                 <div class="collapse navbar-collapse" id="navbarExample01">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item active">
-                      <a class="nav-link" aria-current="page" href="#">Trang chủ</a>
+                      <a class="nav-link" aria-current="page" href="http://localhost:88/BTL_CSE/users/?email=phamthokd@gmail.com">Trang chủ</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#">Thông tin cá nhân</a>
@@ -86,7 +86,24 @@
         <div class="container rounded bg-white mt-5 mb-5">
             <div class="row">
                 <div class="col-md-3 border-right">
-                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Php</span><span class="text-black-50">php@mail.com.my</span><span> </span></div>
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                    <?php
+                      $conn = mysqli_connect('localhost','root','','btl_ql','3306');
+                                      
+                      if(!$conn){
+                        die("kết nối thất bại. Kiểm tra lại");
+                      }
+                      if(isset($_GET['id']))
+                      $userid = $_GET['id'];
+                      $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and a.infor_id = '$userid'";
+                      $result = mysqli_query($conn,$sql);
+                      if(mysqli_num_rows($result)>0){
+                        while($row = mysqli_fetch_assoc($result)){
+                          echo ''.$row['first_name'].' '.$row['last_name'].'';
+                        ?>
+                    <span class="font-weight-bold"></span><span class="text-black-50"></span><span>
+                      <?php echo ''.$row['email'].'';}} ?>
+                    </span></div>
                 </div>
                 <div class="col-md-5 border-right">
                     <div class="p-3 py-5">
@@ -102,9 +119,7 @@
                               $slt = mysqli_query($conn, "Select * from infor_users where infor_id = '$userid'");
                               if (mysqli_num_rows($slt) > 0) {
                                   $row = mysqli_fetch_assoc($slt);
-                              } else {
-                                  header('index.php');
-                              }
+                              } 
                             ?>
                             <?php
                                 if (isset($_POST['btn_save'])) {
@@ -130,31 +145,25 @@
                         </div>
                         <form action="" method="post">
                             <div class="row mt-2">
-                                <div class="col-md-6"><label class="labels">Họ</label><input type="text" class="form-control" placeholder="Họ" value="" name="first_name"></div>
-                                <div class="col-md-6"><label class="labels">Tên</label><input type="text" class="form-control" value="" placeholder="Tên" name="last_name"></div>
+                                <div class="col-md-6"><label class="labels">Họ</label><input type="text" class="form-control" placeholder="Họ" value="<?php echo $row['first_name']; ?>" name="first_name"></div>
+                                <div class="col-md-6"><label class="labels">Tên</label><input type="text" class="form-control" value="<?php echo $row['last_name'] ?>" placeholder="Tên" name="last_name"></div>
                             </div>
                             <div class="row mt-3">
-                                <div class="col-md-12"><label class="labels">Tuổi</label><input type="text" class="form-control" placeholder="Tuổi" value="" name="age"></div>
-                                <div class="col-md-12"><label class="labels">Địa chỉ</label><input type="text" class="form-control" placeholder="Địa chỉ" value="" name="address"></div>
-                                <div class="col-md-12"><label class="labels">ngày sinh</label><input type="date" class="form-control" placeholder="ngày sinh" value="" name="date"></div>
-                                <div class="col-md-12"><label class="labels">Số điện thoại</label><input type="phoneNumber" class="form-control" placeholder="Số điện thoại" value="" name="phone_number"></div>
+                                <div class="col-md-12"><label class="labels">Tuổi</label><input type="text" class="form-control" placeholder="Tuổi" value="<?php echo $row['age'] ?>" name="age"></div>
+                                <div class="col-md-12"><label class="labels">Địa chỉ</label><input type="text" class="form-control" placeholder="Địa chỉ" value="<?php echo $row['address'] ?>" name="address"></div>
+                                <div class="col-md-12"><label class="labels">ngày sinh</label><input type="date" class="form-control" placeholder="ngày sinh" value="<?php echo $row['date'] ?>" name="date"></div>
+                                <div class="col-md-12"><label class="labels">Số điện thoại</label><input type="phoneNumber" class="form-control" placeholder="Số điện thoại" value="<?php echo $row['phone_number'] ?>" name="phone_number"></div>
                                 <label class="control-label col-sm-3">Giới tính:</label>
                                 <div class="col-sm-6">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <label class="radio-inline">
-                                                <input type="radio" id="femaleRadio" name="gender" <?php if (isset($gender) && $gender=="nữ") echo "checked";?> value="nữ">Nữ
-                                            </label>
+                                        <input <?php if ($row['gender'] == "nữ") echo "checked"; ?> type="radio" name="gender" value="nữ"><label>nữ</label>
                                         </div>
                                         <div class="col-sm-4">
-                                            <label class="radio-inline">
-                                                <input type="radio" id="maleRadio" name="gender" <?php if (isset($gender) && $gender=="nam") echo "checked";?> value="nam">Nam
-                                            </label>
+                                        <input <?php if ($row['gender'] == "nam") echo "checked"; ?> type="radio" name="gender" value="nam"><label>nam</label>
                                         </div>
                                         <div class="col-sm-4">
-                                            <label class="radio-inline">
-                                                <input type="radio" id="maleRadio" name="gender" <?php if (isset($gender) && $gender=="khác") echo "checked";?> value="khác">khác
-                                            </label>
+                                        <input <?php if ($row['gender'] == "khác") echo "checked"; ?> type="radio" name="gender" value="khác"><label>khác</label>
                                         </div>
                                     </div>   
                                 </div>
