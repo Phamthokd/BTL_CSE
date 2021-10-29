@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['login_ok']))
+        header("Location: http://localhost:88/BTL_CSE/login/login.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +15,6 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -103,9 +107,18 @@
                         </div>
                     </div>
                     <div>
-
-                        <div class="small text-gray-500"></div>
-                        <span class="font-weight-bold"></span>
+                    <?php
+                  include('../config/db.php');
+                  if(isset($_GET['email']))
+                  $email=$_GET['email'];
+                  $sql = "SELECT * FROM `infor_users` a, users b , plan c WHERE a.userid=b.userid and c.infor_id=a.infor_id";
+                  $result = mysqli_query($conn,$sql);
+                  if(mysqli_num_rows($result)>0){
+                    while($row = mysqli_fetch_assoc($result)){
+                    ?>
+                      <div class="small text-gray-500"><?php echo ''.$row['date_start'].'';?></div>
+                      <span class="font-weight-bold"><?php echo ''.$row['title'].'';}}?></span>
+                        
                     </div>
                 </a>
                 </div>
@@ -116,7 +129,16 @@
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                
+                <?php
+                include('../config/db.php');
+                if(isset($_GET['email']))
+                $email=$_GET['email'];
+                $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and b.email LIKE '$email'";
+                $result = mysqli_query($conn,$sql);
+                if(mysqli_num_rows($result)>0){
+                    while($row = mysqli_fetch_assoc($result)){
+                    echo 'Xin chào '.$row['last_name'].'';}}
+                  ?>
                 </span>
                 <img class="img-profile rounded-circle"
                     src="https://github.com/mdo.png" width="32" height="32">
@@ -124,10 +146,18 @@
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="http://localhost:88/BTL_CSE/users/profile/profile_setting.php?id=<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>sửa thông tin</a>
+                <?php
+                    include('../config/db.php');
+                    if(isset($_GET['email']))
+                    $email=$_GET['email'];
+                    $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and b.email LIKE '$email'";
+                    $result = mysqli_query($conn,$sql);
+                    if(mysqli_num_rows($result)>0){
+                      while($row = mysqli_fetch_assoc($result)){?>
+                    <a class="dropdown-item" href="http://localhost:88/BTL_CSE/users/profile/profile_setting.php?id=<?php echo $row['infor_id'];?>"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>sửa thông tin</a>
 
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="http://localhost:88/BTL_CSE/users/profile/profile_setting.php?id="><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Đăng xuất</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="http://localhost:88/BTL_CSE/logout/logout.php?id=<?php echo $row['infor_id'];}}?>"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Đăng xuất</a>
                 </div>
                 </li>
 
