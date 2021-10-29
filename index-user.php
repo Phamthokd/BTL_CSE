@@ -18,7 +18,7 @@
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="#" class="nav-link px-2 link-secondary">Trang chủ</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Quản lý người dùng</a></li>
+        <li><a href="http://localhost:81/test/index-user.php" class="nav-link px-2 link-dark">Quản lý người dùng</a></li>
         <li><a href="#" class="nav-link px-2 link-dark">Quản lý Nhóm</a></li>
         <li><a href="#" class="nav-link px-2 link-dark">Giới thiệu</a></li>
       </ul>
@@ -31,15 +31,22 @@
   <div class="col-md-12">
     <table class="table table-striped">
         <thead>
+        <?php
+            if(isset($_GET['response'])){
+                if($_GET['response']=='xoa'){
+                   echo "<p class='text-danger'>Xóa thành công</p>";
+                }                        
+              }
+        ?>
       <tr>
         <th scope="col">STT</th>
         <th scope="col">Họ Tên</th>
         <th scope="col">Tuổi</th>
         <th scope="col">Địa chỉ</th>
-        <th scope="col">Email</th>
+        <th scope="col">Ngày sinh</th>
+        <th scope="col">Giới tính</th>
+        <th scope="col">Số điện thoại</th>
         <th scope="col">Nhóm</th>
-        <th scope="col">Thông tin</th>
-        <th scope="col">Sửa</th>
         <th scope="col">Xóa</th>
       </tr>
     </thead>
@@ -47,7 +54,7 @@
     <?php
         //lấy dữ liệu từ CSDL và để ra bảng (phần lặp lại)
         //bước 1:kết nối tời csdl(mysql)
-        $conn = mysqli_connect('localhost','root','','btl');
+        $conn = mysqli_connect('localhost','root','','btl_ql');
             if(!$conn){
                 die("Không thể kết nối,kiểm tra lại các tham số kết nối");
                     }
@@ -63,14 +70,14 @@
     ?>
       <tr>
       <th scope="row"><?php echo $i; ?> </th>
-        <td><?php echo $row['last_name']; ?> </td>
+        <td><?php echo $row['first_name']; ?> <?php echo $row['last_name']; ?> </td>
         <td><?php echo $row['age']; ?> </td>
         <td><?php echo $row['address']; ?> </td>
-        <td><?php echo $row['email']; ?> </td>
+        <td><?php echo $row['date']; ?> </td>
+        <td><?php echo $row['gender']; ?> </td>
+        <td><?php echo $row['phone_number']; ?> </td>
         <td><?php echo $row['group_id']; ?> </td>
-        <td><a href="#"><i class="fas fa-info-circle"></i></a></td>
-        <td><a href="#"><i class="fas fa-edit"></i></a></td>
-        <td><a href="#"><i class="fas fa-trash"></i></a></td>
+        <td><a href="xoa-user.php?infor_id=<?php echo $row['infor_id']; ?>"><i class="fas fa-trash"></i></a></td>
       </tr>
       <?php
         $i++;
@@ -80,9 +87,6 @@
     </tbody>
 
     </table>
-    <div>
-      <button type="button" class="btn btn-info">Thêm người dùng</button>
-    </div>
   </div>
   </div>
   <footer class="p-5 d-flex justify-content-center bg-secondary py-3 text-white">
