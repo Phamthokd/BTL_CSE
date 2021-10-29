@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 28, 2021 lúc 12:55 PM
+-- Thời gian đã tạo: Th10 29, 2021 lúc 05:11 PM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 8.0.10
 
@@ -65,7 +65,7 @@ CREATE TABLE `infor_users` (
 --
 
 INSERT INTO `infor_users` (`infor_id`, `first_name`, `last_name`, `age`, `address`, `date`, `phone_number`, `gender`, `group_id`, `userid`) VALUES
-(1, 'Phạm', 'Thọ', 20, 'VP', '2001-01-27', 397327836, 'nam', 1, 1);
+(23, 'phạm', 'thọ', 26, 'VP', '2001-01-27', 397327837, 'khác', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -76,11 +76,33 @@ INSERT INTO `infor_users` (`infor_id`, `first_name`, `last_name`, `age`, `addres
 CREATE TABLE `plan` (
   `plan_id` int(6) UNSIGNED NOT NULL,
   `title` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `content` varchar(120) CHARACTER SET utf8 DEFAULT NULL,
-  `date_start` date NOT NULL,
-  `date_end` date DEFAULT NULL,
-  `infor_id` int(6) UNSIGNED NOT NULL
+  `date_start` datetime NOT NULL,
+  `date_end` datetime DEFAULT NULL,
+  `infor_id` int(6) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `plan`
+--
+
+INSERT INTO `plan` (`plan_id`, `title`, `date_start`, `date_end`, `infor_id`) VALUES
+(1, 'dự sinh nhật', '2021-10-31 00:00:00', '2021-10-31 00:00:00', 23),
+(2, 'dự đám cưới', '2021-12-16 00:00:00', '2021-12-17 00:00:00', 23),
+(3, 'hello', '2021-09-29 00:00:00', '2021-09-30 00:00:00', NULL),
+(4, 'hehe', '2021-09-29 00:00:00', '2021-09-30 00:00:00', NULL),
+(5, 'abc', '2021-10-06 00:00:00', '2021-10-07 00:00:00', NULL),
+(7, 'jdhasd', '2021-10-07 00:00:00', '2021-10-08 00:00:00', NULL),
+(8, 'đầ', '2021-09-28 00:00:00', '2021-09-29 00:00:00', NULL),
+(9, 'đasa', '2021-10-05 00:00:00', '2021-10-06 00:00:00', NULL),
+(10, 'fsafsda', '2021-10-06 00:00:00', '2021-10-07 00:00:00', NULL),
+(11, 'fasdfd', '2021-09-29 00:00:00', '2021-09-30 00:00:00', NULL),
+(12, 'adsad', '2021-09-29 00:00:00', '2021-09-30 00:00:00', NULL),
+(13, 'hehehe', '2021-10-06 00:00:00', '2021-10-07 00:00:00', NULL),
+(14, 'kakaka', '2021-10-05 00:00:00', '2021-10-06 00:00:00', NULL),
+(15, 'kkkk', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(16, 'hhaaha', '2021-09-28 00:00:00', '2021-09-29 00:00:00', NULL),
+(17, 'abc', '2021-10-07 00:00:00', '2021-10-08 00:00:00', NULL),
+(18, 'abgcagc', '2021-10-06 00:00:00', '2021-10-07 00:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -103,7 +125,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userid`, `email`, `password`, `registration_date`, `user_level`, `status`, `code`) VALUES
-(1, 'phamthokd@gmail.com', '$2y$10$ao8eO5j6B.ZIo/lVE4mY2eAPwhj8bzz727eLGrT1STYfgu6wDh5Ji', '2021-10-28 16:58:55', 0, 0, 127);
+(2, 'phamthokd1@gmail.com', 'a', '2021-10-28 21:54:27', 0, 0, 5),
+(3, 'phamthokd@gmail.com', '$2y$10$v1awJo3a7x8kM9Z7pCGyqekROvNmnPbl1Nty8oU8DRCW53giWx//W', '2021-10-28 19:31:05', 0, 1, 127);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -120,8 +143,8 @@ ALTER TABLE `group_users`
 --
 ALTER TABLE `infor_users`
   ADD PRIMARY KEY (`infor_id`),
-  ADD KEY `infor_users_ibfk_1` (`group_id`),
-  ADD KEY `infor_users_ibfk_2` (`userid`);
+  ADD UNIQUE KEY `infor_users_ibfk_2` (`userid`) USING BTREE,
+  ADD KEY `infor_users_ibfk_1` (`group_id`);
 
 --
 -- Chỉ mục cho bảng `plan`
@@ -151,19 +174,19 @@ ALTER TABLE `group_users`
 -- AUTO_INCREMENT cho bảng `infor_users`
 --
 ALTER TABLE `infor_users`
-  MODIFY `infor_id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `infor_id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT cho bảng `plan`
 --
 ALTER TABLE `plan`
-  MODIFY `plan_id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `plan_id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `userid` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `userid` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

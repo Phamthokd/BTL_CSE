@@ -18,7 +18,7 @@
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="#" class="nav-link px-2 link-secondary">Trang chủ</a></li>
-        <li><a href="http://localhost:81/test/index-user.php" class="nav-link px-2 link-dark">Quản lý người dùng</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">Quản lý người dùng</a></li>
         <li><a href="#" class="nav-link px-2 link-dark">Quản lý Nhóm</a></li>
         <li><a href="#" class="nav-link px-2 link-dark">Giới thiệu</a></li>
       </ul>
@@ -77,7 +77,7 @@
         <td><?php echo $row['gender']; ?> </td>
         <td><?php echo $row['phone_number']; ?> </td>
         <td><?php echo $row['group_id']; ?> </td>
-        <td><a href="xoa-user.php?infor_id=<?php echo $row['infor_id']; ?>"><i class="fas fa-trash"></i></a></td>
+        <td><a href="delete_users.php?infor_id=<?php echo $row['infor_id']; ?>"><i class="fas fa-trash"></i></a></td>
       </tr>
       <?php
         $i++;

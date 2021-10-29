@@ -8,7 +8,7 @@
     $res = mysqli_query($conn, $sql);
     if($res==TRUE){
         $value='xoa';
-        header("Location:index-user.php?response=$value");
+        header("Location:index.php?response=$value");
     }else{
         echo 'xoa  tb';
     }
