@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     var calendar = $('#calendar').fullCalendar({
         editable: true,
         events: "fetch-event.php",
@@ -15,7 +15,7 @@ $(document).ready(function () {
         selectHelper: true,
         select: function (start, end, allDay) {
             var title = prompt('Event Title:');
-
+            
             if (title) {
                 var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
                 var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");

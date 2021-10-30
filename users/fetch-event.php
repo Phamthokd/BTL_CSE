@@ -7,10 +7,14 @@
     $result = mysqli_query($conn, $sqlQuery);
     $eventArray = array();
     while ($row = mysqli_fetch_assoc($result)) {
-        array_push($eventArray, $row);
+        // hien event ra lich
+        $obj = new stdClass();
+        $obj->title = $row["title"];
+        $obj->start = $row["date_start"];
+        $obj->end = $row["date_end"];
+        array_push($eventArray, $obj);
     }
     mysqli_free_result($result);
-
     mysqli_close($conn);
     echo json_encode($eventArray);
 ?>
