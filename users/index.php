@@ -190,7 +190,9 @@
       <!-- Background image -->
     </header>
 
-
+        <script>
+        var email = <?php echo json_encode($email); ?>;
+        </script>
         <div class="response"></div>
         <div id='calendar'></div>
     </div>

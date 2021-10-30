@@ -22,7 +22,7 @@ $(document).ready(function () {
 
                 $.ajax({
                     url: 'add-event.php',
-                    data: 'title=' + title + '&start=' + start + '&end=' + end,
+                    data: 'title=' + title + '&start=' + start + '&end=' + end + '&email=' + email,
                     type: "POST",
                     success: function (data) {
                         displayMessage("Added Successfully");
@@ -47,7 +47,7 @@ $(document).ready(function () {
                     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
                     $.ajax({
                         url: 'edit-event.php',
-                        data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
+                        data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.plan_id,
                         type: "POST",
                         success: function (response) {
                             displayMessage("Updated Successfully");
