@@ -10,6 +10,7 @@
         // hien event ra lich
         $obj = new stdClass();
         $obj->title = $row["title"];
+        $obj->id = $row["plan_id"];
         $obj->start = $row["date_start"];
         $obj->end = $row["date_end"];
         array_push($eventArray, $obj);
