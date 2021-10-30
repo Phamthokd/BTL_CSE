@@ -39,15 +39,15 @@
                         $mail->isSMTP();// gửi mail SMTP
                         $mail->Host = 'smtp.gmail.com';// Set the SMTP server to send through
                         $mail->SMTPAuth = true;// Enable SMTP authentication
-                        $mail->Username = 'phamthokd@gmail.com';// SMTP username
-                        $mail->Password = 'Nghia12345'; // SMTP password
+                        $mail->Username = 'thold6789@gmail.com';// SMTP username
+                        $mail->Password = 'hackerviet'; // SMTP password
                         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;// Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
                         $mail->Port = 587; // TCP port to connect to
                         $mail->CharSet = 'UTF-8';
                         //Recipients
-                        $mail->setFrom('phamthokd@gmail.com', 'Kích hoạt tài khoản');
+                        $mail->setFrom('thold6789@gmail.com', 'Kích hoạt tài khoản');
                     
-                        $mail->addReplyTo('phamthokd@gmail.com', 'Kích hoạt tài khoản');
+                        $mail->addReplyTo('thold6789@gmail.com', 'Kích hoạt tài khoản');
                         
                         $mail->addAddress($email); // địa chỉ người nhận
                         
