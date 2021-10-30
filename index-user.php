@@ -48,6 +48,7 @@
         <th scope="col">Số điện thoại</th>
         <th scope="col">Nhóm</th>
         <th scope="col">Xóa</th>
+        <th scope="col">Thêm công việc</th>
       </tr>
     </thead>
     <tbody>
@@ -78,6 +79,7 @@
         <td><?php echo $row['phone_number']; ?> </td>
         <td><?php echo $row['group_id']; ?> </td>
         <td><a href="xoa-user.php?infor_id=<?php echo $row['infor_id']; ?>"><i class="fas fa-trash"></i></a></td>
+        <td><a href="http://localhost:88/BTL_CSE/users/index.php?infor_id=<?php echo $row['infor_id']; ?>"><i class="fas fa-plus-square"></i></a></td>
       </tr>
       <?php
         $i++;
