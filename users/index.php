@@ -53,8 +53,18 @@
                 <li class="nav-item active">
                     <a class="nav-link" aria-current="page" href="#">Trang chủ</a>
                 </li>
+                <!--  -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Thông tin cá nhân</a>
+                <?php
+                    include('../config/db.php');
+                    if(isset($_GET['email']))
+                    $email=$_GET['email'];
+                    $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and b.email LIKE '$email'";
+                    $result = mysqli_query($conn,$sql);
+                    if(mysqli_num_rows($result)>0){
+                      while($row = mysqli_fetch_assoc($result)){
+                ?>
+                    <a class="nav-link" href="http://localhost:88/BTL_CSE/users/profile/detail_infor_users.php?id=<?php echo $row['infor_id'];}}?>">Thông tin cá nhân</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Trợ giúp</a>
@@ -191,3 +201,4 @@
 
 </html>
 
+            
