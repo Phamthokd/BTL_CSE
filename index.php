@@ -29,12 +29,21 @@
   </header>
   <div class="content">
   <div class="col-md-12">
+                  <?php
+                    if(isset($_GET['response'])){
+                        if($_GET['response']=='successfully'){
+                            echo "<p class='text-danger'>Thêm thành công</p>";
+                        }
+                        if($_GET['response']=='existed'){
+                            echo "<p class='text-danger'>Thêm thất bại</p>";
+                        }
+                    }
+                  ?>
     <table class="table table-striped">
         <thead>
       <tr>
         <th scope="col">STT</th>
         <th scope="col">Công việc</th>
-        <th scope="col">Nhóm thực hiện</th>
         <th scope="col">Ngày bắt đầu</th>
         <th scope="col">Ngày kết thúc</th>
         <th scope="col">Chi tiết</th>
@@ -52,7 +61,7 @@
                     }
 
          //bước 2 khai báo câu lệnh thực thi và thực hiện truy vấn
-        $sql = "SELECT*FROM infor_users";
+        $sql = "SELECT*FROM plan";
         $result = mysqli_query($conn,$sql);
 
         //bước 3 xử lý kết quả trả về
@@ -62,16 +71,12 @@
     ?>
       <tr>
       <th scope="row"><?php echo $i; ?> </th>
-        <td><?php echo $row['first_name']; ?> <?php echo $row['last_name']; ?> </td>
-        <td><?php echo $row['age']; ?> </td>
-        <td><?php echo $row['address']; ?> </td>
-        <td><?php echo $row['date']; ?> </td>
-        <td><?php echo $row['gender']; ?> </td>
-        <td><?php echo $row['phone_number']; ?> </td>
-        <td><?php echo $row['group_id']; ?> </td>
-        <td><a href="#"><i class="fas fa-info-circle"></i></a></td>
-        <td><a href="#"><i class="fas fa-edit"></i></a></td>
-        <td><a href="xoa-user.php?infor_id=<?php echo $row['infor_id']; ?>"><i class="fas fa-trash"></i></a></td>
+        <td><?php echo $row['title']; ?> </td>
+        <td><?php echo $row['date_start']; ?> </td>
+        <td><?php echo $row['date_end']; ?> </td>
+        <td><a href="info_work.php?plan_id=<?php echo $row['plan_id']; ?>"><i class="fas fa-info-circle"></i></a></td>
+        <td><a href="edit_work.php?plan_id=<?php echo $row['plan_id']; ?>"><i class="fas fa-edit"></i></a></td>
+        <td><a href="delete_work.php?plan_id=<?php echo $row['plan_id']; ?>"><i class="fas fa-trash"></i></a></td>
       </tr>
       <?php
         $i++;
@@ -82,7 +87,7 @@
 
     </table>
     <div>
-      <button type="button" class="btn btn-info">Thêm công việc</button>
+      <button type="button" class="btn btn-info"><a href="add_work.php">Thêm công việc</a></button>
     </div>
   </div>
   </div>
