@@ -1,5 +1,8 @@
 $(document).ready(function () {
-    
+    // $.ajax({
+    //     url: 'fetch-event.php',
+    //   data: 'email=' + email,
+    //    type: "GET"});
     var calendar = $('#calendar').fullCalendar({
         editable: true,
         events: "fetch-event.php",
@@ -15,32 +18,31 @@ $(document).ready(function () {
         selectHelper: true,
         select: function (start, end, allDay) {
             var title = prompt('Event Title:');
-
+            
             if (title) {
                 var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
                 var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
-
                 $.ajax({
                     url: 'add-event.php',
-                    data: 'title=' + title + '&start=' + start + '&end=' + end,
+                    data: 'title=' + title + '&start=' + start + '&end=' + end + '&email=' + email,
                     type: "POST",
                     success: function (data) {
-                        displayMessage("Added Successfully");
-                    }
-                });
-                calendar.fullCalendar('renderEvent',
+                        calendar.fullCalendar('renderEvent',
                         {
+                            id: data,
                             title: title,
                             start: start,
                             end: end,
                             allDay: allDay
                         },
-                true
+                            false
                         );
+                        displayMessage("Added Successfully");
+                    }
+                });
             }
             calendar.fullCalendar('unselect');
         },
-        
         editable: true,
         eventDrop: function (event, delta) {
                     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
@@ -57,6 +59,7 @@ $(document).ready(function () {
         eventClick: function (event) {
             var deleteMsg = confirm("Do you really want to delete?");
             if (deleteMsg) {
+                console.log(event.id)
                 $.ajax({
                     type: "POST",
                     url: "delete-event.php",
@@ -75,6 +78,6 @@ $(document).ready(function () {
 });
 
 function displayMessage(message) {
-	    $(".response").html("<div class='success'>"+message+"</div>");
+	$(".response").html("<div class='success'>"+message+"</div>");
     setInterval(function() { $(".success").fadeOut(); }, 1000);
 }
