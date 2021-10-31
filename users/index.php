@@ -121,7 +121,7 @@
                   include('../config/db.php');
                   if(isset($_GET['email']))
                   $email=$_GET['email'];
-                  $sql = "SELECT * FROM `infor_users` a, users b , plan c WHERE a.userid=b.userid and c.infor_id=a.infor_id";
+                  $sql = "SELECT * FROM `infor_users` a, users b , plan c WHERE a.userid=b.userid and c.infor_id=a.infor_id and b.email='$email'";
                   $result = mysqli_query($conn,$sql);
                   if(mysqli_num_rows($result)>0){
                     while($row = mysqli_fetch_assoc($result)){

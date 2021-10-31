@@ -1,5 +1,8 @@
 $(document).ready(function () {
-
+    // $.ajax({
+    //     url: 'fetch-event.php',
+    //   data: 'email=' + email,
+    //    type: "GET"});
     var calendar = $('#calendar').fullCalendar({
         editable: true,
         events: "fetch-event.php",
@@ -47,7 +50,7 @@ $(document).ready(function () {
                     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
                     $.ajax({
                         url: 'edit-event.php',
-                        data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.plan_id,
+                        data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
                         type: "POST",
                         success: function (response) {
                             displayMessage("Updated Successfully");
