@@ -102,7 +102,16 @@
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
+                <span class="badge badge-danger badge-counter">
+                <?php
+                  include('../config/db.php');
+                  if(isset($_GET['email']))
+                  $email=$_GET['email'];
+                  $sql = "SELECT * FROM `infor_users` a, users b , plan c WHERE a.userid=b.userid and c.infor_id=a.infor_id and b.email='$email' AND DATEDIFF(c.date_start,CURDATE())=2";
+                  $result = mysqli_query($conn,$sql);
+                  echo (mysqli_num_rows($result));
+                ?>
+                +</span>
                 </a>
                 <!-- Dropdown - Alerts -->
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -110,27 +119,26 @@
                 <h6 class="dropdown-header">
                     Thông báo
                 </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-primary">
-                            <i class="fas fa-file-alt text-white"></i>
-                        </div>
-                    </div>
-                    <div>
-                    <?php
+                <?php
                   include('../config/db.php');
                   if(isset($_GET['email']))
                   $email=$_GET['email'];
-                  $sql = "SELECT * FROM `infor_users` a, users b , plan c WHERE a.userid=b.userid and c.infor_id=a.infor_id and b.email='$email'";
+                  $sql = "SELECT * FROM `infor_users` a, users b , plan c WHERE a.userid=b.userid and c.infor_id=a.infor_id and b.email='$email' AND DATEDIFF(c.date_start,CURDATE())=2";
                   $result = mysqli_query($conn,$sql);
                   if(mysqli_num_rows($result)>0){
                     while($row = mysqli_fetch_assoc($result)){
                     ?>
-                      <div class="small text-gray-500"><?php echo ''.$row['date_start'].'';?></div>
-                      <span class="font-weight-bold"><?php echo ''.$row['title'].'';}}?></span>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                      <div class="small text-gray-500"><i class="fas fa-calendar-alt"></i><?php echo ' '.$row['date_start'].'';?></div>
+                      <span class="font-weight-bold"><?php echo ''.$row['title'].'';?></span>
                         
-                    </div>
+                    </div>   
                 </a>
+                <?php
+                  }
+                }
+                    ?>
                 </div>
                 </li>
 
