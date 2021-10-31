@@ -9,7 +9,11 @@ $sqlInsert = "INSERT INTO plan (title,date_start,date_end) VALUES ('".$title."',
 
 $result = mysqli_query($conn, $sqlInsert);
 
-if (! $result) {
+if (!$result) {
     $result = mysqli_error($conn);
+}
+else {
+    $last_id = mysqli_insert_id($conn);
+    echo $last_id;
 }
 ?>
