@@ -1,11 +1,18 @@
-$(document).ready(function () {
-    // $.ajax({
-    //     url: 'fetch-event.php',
-    //   data: 'email=' + email,
-    //    type: "GET"});
+async function getData() { 
+    const search = new URLSearchParams(window.location.search);
+    const data = await $.ajax({
+        url: "fetch-event.php?email=" + search.get('email'),
+        type: "GET",
+    });
+    return JSON.parse(data);
+  };
+  
+
+$(document).ready(async function () {
+    const events = await getData();
     var calendar = $('#calendar').fullCalendar({
         editable: true,
-        events: "fetch-event.php",
+        events: events,
         displayEventTime: false,
         eventRender: function (event, element, view) {
             if (event.allDay === 'true') {
@@ -35,7 +42,7 @@ $(document).ready(function () {
                             end: end,
                             allDay: allDay
                         },
-                            false
+                            true
                         );
                         displayMessage("Added Successfully");
                     }

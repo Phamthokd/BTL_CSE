@@ -1,8 +1,8 @@
 <?php
     include("../config/db.php");
-    //$email=$_GET['email'];
+    $email=$_GET['email'];
     $json = array();
-    $sqlQuery = "SELECT * FROM plan a ,infor_users b, users c WHERE a.infor_id=b.infor_id and b.userid=c.userid and c.email='phamthokd19@gmail.com' ORDER BY plan_id";
+    $sqlQuery = "SELECT * FROM plan a ,infor_users b, users c WHERE a.infor_id=b.infor_id and b.userid=c.userid and c.email='$email' ORDER BY plan_id";
 
     $result = mysqli_query($conn, $sqlQuery);
     $eventArray = array();
