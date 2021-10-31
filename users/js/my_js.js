@@ -34,6 +34,7 @@ $(document).ready(async function () {
                     data: 'title=' + title + '&start=' + start + '&end=' + end + '&email=' + email,
                     type: "POST",
                     success: function (data) {
+                        console.log(data);
                         calendar.fullCalendar('renderEvent',
                         {
                             id: data,
@@ -66,12 +67,13 @@ $(document).ready(async function () {
         eventClick: function (event) {
             var deleteMsg = confirm("Do you really want to delete?");
             if (deleteMsg) {
-                console.log(event.id)
+                console.log(event)
                 $.ajax({
                     type: "POST",
                     url: "delete-event.php",
                     data: "&id=" + event.id,
                     success: function (response) {
+                        console.log(response);
                         if(parseInt(response) > 0) {
                             $('#calendar').fullCalendar('removeEvents', event.id);
                             displayMessage("Deleted Successfully");
