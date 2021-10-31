@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -56,15 +56,20 @@
                 <!--  -->
                 <li class="nav-item">
                 <?php
-                    include('../config/db.php');
-                    if(isset($_GET['email']))
-                    $email=$_GET['email'];
-                    $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and b.email LIKE '$email'";
+                    $conn = mysqli_connect('localhost','root','','btl_ql','3306');
+                                    
+                    if(!$conn){
+                    die("kết nối thất bại. Kiểm tra lại");
+                    }
+                    if(isset($_GET['id']))
+                    $infor_id = $_GET['id'];
+                    $sql = "SELECT * FROM `infor_users` a WHERE a.infor_id = '$infor_id'";
                     $result = mysqli_query($conn,$sql);
                     if(mysqli_num_rows($result)>0){
-                      while($row = mysqli_fetch_assoc($result)){
+                    while($row = mysqli_fetch_assoc($result)){
                 ?>
                     <a class="nav-link" href="http://localhost:88/BTL_CSE/users/profile/detail_infor_users.php?id=<?php echo $row['infor_id'];}}?>">Thông tin cá nhân</a>
+                
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Trợ giúp</a>
@@ -104,10 +109,14 @@
                 <!-- Counter - Alerts -->
                 <span class="badge badge-danger badge-counter">
                 <?php
-                  include('../config/db.php');
-                  if(isset($_GET['email']))
-                  $email=$_GET['email'];
-                  $sql = "SELECT * FROM `infor_users` a, users b , plan c WHERE a.userid=b.userid and c.infor_id=a.infor_id and b.email='$email' AND DATEDIFF(c.date_start,CURDATE())=2";
+                  $conn = mysqli_connect('localhost','root','','btl_ql','3306');
+                                      
+                  if(!$conn){
+                    die("kết nối thất bại. Kiểm tra lại");
+                  }
+                  if(isset($_GET['id']))
+                  $infor_id=$_GET['id'];
+                  $sql = "SELECT * FROM `infor_users` a , plan c WHERE c.infor_id=a.infor_id and a.infor_id = '$infor_id' AND DATEDIFF(c.date_start,CURDATE())=2";
                   $result = mysqli_query($conn,$sql);
                   echo (mysqli_num_rows($result));
                 ?>
@@ -120,15 +129,19 @@
                     Thông báo
                 </h6>
                 <?php
-                  include('../config/db.php');
-                  if(isset($_GET['email']))
-                  $email=$_GET['email'];
-                  $sql = "SELECT * FROM `infor_users` a, users b , plan c WHERE a.userid=b.userid and c.infor_id=a.infor_id and b.email='$email' AND DATEDIFF(c.date_start,CURDATE())=2";
+                  $conn = mysqli_connect('localhost','root','','btl_ql','3306');
+                                      
+                  if(!$conn){
+                    die("kết nối thất bại. Kiểm tra lại");
+                  }
+                  if(isset($_GET['id']))
+                  $infor_id=$_GET['id'];
+                  $sql = "SELECT * FROM `infor_users` a, plan c WHERE c.infor_id=a.infor_id and a.infor_id = '$infor_id' AND DATEDIFF(c.date_start,CURDATE())=2";
                   $result = mysqli_query($conn,$sql);
                   if(mysqli_num_rows($result)>0){
                     while($row = mysqli_fetch_assoc($result)){
                     ?>
-                <a class="dropdown-item d-flex align-items-center" href="http://localhost:88/BTL_CSE/users/calender/view_calender.php?id=<?php echo $row['infor_id'];?>">
+                <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="mr-3">
                       <div class="small text-gray-500"><i class="fas fa-calendar-alt"></i><?php echo ' '.$row['date_start'].'';?></div>
                       <span class="font-weight-bold"><?php echo ''.$row['title'].'';?></span>
@@ -148,10 +161,14 @@
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                 <?php
-                include('../config/db.php');
-                if(isset($_GET['email']))
-                $email=$_GET['email'];
-                $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and b.email LIKE '$email'";
+                $conn = mysqli_connect('localhost','root','','btl_ql','3306');
+                                      
+                if(!$conn){
+                  die("kết nối thất bại. Kiểm tra lại");
+                }
+                if(isset($_GET['id']))
+                $infor_id=$_GET['id'];
+                $sql = "SELECT * FROM `infor_users` a WHERE a.infor_id = '$infor_id'";
                 $result = mysqli_query($conn,$sql);
                 if(mysqli_num_rows($result)>0){
                     while($row = mysqli_fetch_assoc($result)){
@@ -165,7 +182,11 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown">
                 <?php
-                    include('../config/db.php');
+                    $conn = mysqli_connect('localhost','root','','btl_ql','3306');
+                                      
+                    if(!$conn){
+                      die("kết nối thất bại. Kiểm tra lại");
+                    }
                     if(isset($_GET['email']))
                     $email=$_GET['email'];
                     $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and b.email LIKE '$email'";
@@ -195,12 +216,96 @@
     
       <!-- Background image -->
         </header>
-    
-        <script>
-        var email = <?php echo json_encode($email); ?>;
-        </script>
-        <div class="response"></div>
-        <div id='calendar'></div>
+        
+        
+        <div class="main">
+        <div class="container rounded bg-white mt-5 mb-5">
+            <div class="row">
+                <?php
+                $conn = mysqli_connect('localhost','root','','btl_ql','3306');
+                                      
+                if(!$conn){
+                  die("kết nối thất bại. Kiểm tra lại");
+                }
+                if(isset($_GET['id']))
+                $infor_id=$_GET['id'];
+                $sql = "SELECT * FROM `infor_users` a,users b WHERE a.infor_id = '$infor_id' and a.userid=b.userid";
+                $result = mysqli_query($conn,$sql);
+                if(mysqli_num_rows($result)>0){
+                    while($row = mysqli_fetch_assoc($result)){
+                ?>
+                <div class="col-md-3 border-right">
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                    <?php
+                      echo ''.$row['first_name'].' '.$row['last_name'].'';
+                    ?>
+                    <span class="font-weight-bold"></span><span class="text-black-50"></span><span>
+                      <?php echo ''.$row['email'].'';}} ?>
+                    </span></div>
+                </div>
+                <div class="col-md-7 border-right">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-center">Thông tin chi tiết</h4>
+                            <?php
+                              $conn = mysqli_connect('localhost','root','','btl_ql','3306');
+                                              
+                              if(!$conn){
+                                die("kết nối thất bại. Kiểm tra lại");
+                              }
+                              $userid = $_GET['id'];
+                              $slt = mysqli_query($conn, "Select * from infor_users where infor_id = '$userid'");
+                              if (mysqli_num_rows($slt) > 0) {
+                                  $row = mysqli_fetch_assoc($slt);
+                              } 
+                            ?>   
+                        </div>
+                              <!-- Table detail infor user -->
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Tiêu đề</th>
+                                    <th scope="col">Ngày bắt đầu</th>
+                                    <th scope="col">Ngày kết thúc</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                  $conn = mysqli_connect('localhost','root','','btl_ql','3306');        
+                                  if(!$conn){
+                                    die("kết nối thất bại. Kiểm tra lại");
+                                  }
+                                  $infor_id = $_GET['id'];
+                                  $slt = mysqli_query($conn, "Select * from infor_users a, plan b where a.infor_id=b.infor_id and a.infor_id = '$infor_id' and DATEDIFF(b.date_start,CURDATE())=2");
+                                  if (mysqli_num_rows($slt) > 0) {
+                                      $i=1;
+                                      while($row = mysqli_fetch_assoc($slt)){
+                                        // echo '<pre>';
+                                        // echo print_r($row);
+                                        // echo '</pre>';
+                                ?>
+                                        <tr>
+                                          <th scope="row"><?php echo $i ?></th>
+                                          <td><?php echo $row['title'] ?></td>
+                                          <td><?php echo $row['date_start'] ?></td>
+                                          <td><?php echo $row['date_end'] ?></td>
+                                          
+                                        </tr>
+                                <?php
+                                      $i++;
+                                      }
+                                  } 
+                                ?>       
+                                </tbody>
+                              </table>                        
+                    </div> 
+                </div>           
+            </div>
+        </div>
+    </div>
+        
+        
     
     </div>
     
@@ -208,5 +313,3 @@
 
 
 </html>
-
-            

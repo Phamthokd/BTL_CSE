@@ -30,7 +30,7 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
 <body>
-<div class="swap">
+  <div class="swap">
     <header class="pb-5">
       <!-- Navbar -->
       <div class="container ">
@@ -51,7 +51,20 @@
                 <div class="collapse navbar-collapse" id="navbarExample01">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item ">
-                      <a class="nav-link" href="http://localhost:88/BTL_CSE/users/?email=phamthokd@gmail.com">Trang chủ</a>
+                    <?php
+                      $conn = mysqli_connect('localhost','root','','btl_ql','3306');
+                                      
+                      if(!$conn){
+                        die("kết nối thất bại. Kiểm tra lại");
+                      }
+                      if(isset($_GET['id']))
+                      $userid = $_GET['id'];
+                      $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and a.infor_id = '$userid'";
+                      $result = mysqli_query($conn,$sql);
+                      if(mysqli_num_rows($result)>0){
+                        while($row = mysqli_fetch_assoc($result)){
+                      ?>
+                      <a class="nav-link" href="http://localhost:88/BTL_CSE/users/?email=<?php echo $row['email']; ?>">Trang chủ</a>
                     </li>
                     <li class="nav-item" active>
                       <a class="nav-link fw-bold" aria-current="page"  href="#">Thông tin cá nhân</a>
@@ -63,7 +76,7 @@
                 </div>
                 <div class="flex-shrink-0 dropdown">
                 <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                  <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                   
@@ -88,19 +101,8 @@
                 <div class="col-md-3 border-right">
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                     <?php
-                      $conn = mysqli_connect('localhost','root','','btl_ql','3306');
-                                      
-                      if(!$conn){
-                        die("kết nối thất bại. Kiểm tra lại");
-                      }
-                      if(isset($_GET['id']))
-                      $userid = $_GET['id'];
-                      $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and a.infor_id = '$userid'";
-                      $result = mysqli_query($conn,$sql);
-                      if(mysqli_num_rows($result)>0){
-                        while($row = mysqli_fetch_assoc($result)){
-                          echo ''.$row['first_name'].' '.$row['last_name'].'';
-                        ?>
+                      echo ''.$row['first_name'].' '.$row['last_name'].'';
+                    ?>
                     <span class="font-weight-bold"></span><span class="text-black-50"></span><span>
                       <?php echo ''.$row['email'].'';}} ?>
                     </span></div>
@@ -131,7 +133,7 @@
                                     <th scope="col">Giới tính</th>
                                     <th scope="col">Ngày sinh</th>
                                     <th scope="col">Địa chỉ</th>
-                                    <th scope="col">Chức vụ</th>
+                                    <th scope="col">Nhóm</th>
                                     <th scope="col">Số điện thoại</th>
                                   </tr>
                                 </thead>
@@ -172,8 +174,6 @@
             </div>
         </div>
     </div>
-    
-</div>
-
+  </div>
 </body>
 </html>
