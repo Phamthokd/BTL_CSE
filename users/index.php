@@ -206,46 +206,72 @@
         <div id='calendar'></div>
         <div class="container mt-5">
           <div class="row">
-            <footer class="bg-primary text-white text-center text-lg-start">
+            <footer class="text-center text-white" style="background-color: #f1f1f1;">
               <!-- Grid container -->
-              <div class="container p-4">
-                <!--Grid row-->
-                <div class="row">
-                  <!--Grid column-->
-                  <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h4 class="text-uppercase">Cho phép người dùng</h4>
+              <div class="container pt-4">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+                  <!-- Facebook -->
+                  <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-facebook-f"></i
+                  ></a>
 
-                    <p>
-                      Quản lý thông tin cá nhân,
-                      Lên kế hoạch lịch làm việc với các kế hoạch làm việc được giao hoặc tạo mới các kế hoạch
-                      làm việc,
-                      Nhận thông báo về các lịch làm việc gần kề,
-                      Nhận email về các lịch làm việc gần kề.
-                    </p>
-                  </div>
-                  <!--Grid column-->
+                  <!-- Twitter -->
+                  <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-twitter"></i
+                  ></a>
 
-                  <!--Grid column-->
-                  <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h4 class="text-uppercase">Cho phép người quản lý</h4>
+                  <!-- Google -->
+                  <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-google"></i
+                  ></a>
 
-                    <p>
-                      Quản lý người sử dụng và các nhóm người sử dụng,
-                      Lên kế hoạch lịch làm việc cho các cá nhân hoặc cho các nhóm người sử dụng,
-                      Quản lý các kế hoạch làm việc và các nhóm kế hoạch làm việc,
-                      Gửi thông báo đến các người sử dụng hoặc các nhóm người sử dụng.
-                    </p>
-                  </div>
-                  <!--Grid column-->
-                </div>
-                <!--Grid row-->
+                  <!-- Instagram -->
+                  <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+
+                  <!-- Linkedin -->
+                  <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-linkedin"></i
+                  ></a>
+                  <!-- Github -->
+                  <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-github"></i
+                  ></a>
+                </section>
+                <!-- Section: Social media -->
               </div>
               <!-- Grid container -->
 
               <!-- Copyright -->
-              <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+              <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                 © 2020 Copyright:
-                <a class="text-white">Nhóm 17</a>
+                <a class="text-dark" href="#">MDBootstrap.com</a>
               </div>
               <!-- Copyright -->
             </footer>
