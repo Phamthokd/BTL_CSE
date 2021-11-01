@@ -46,7 +46,7 @@
                 </div>
 
                 <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Quên mật khẩu?</a></p>
-                <p>Bạn chưa có tài khoản? <a href="#!" class="link-info">Đăng ký</a></p>
+                <p>Bạn chưa có tài khoản? <a href="http://localhost:88/BTL_CSE/register/create_account.php" class="link-info">Đăng ký</a></p>
 
             </form>
 

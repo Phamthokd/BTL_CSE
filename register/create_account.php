@@ -72,7 +72,7 @@
                     <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="btn_account">Đăng ký</button>
                     </div>
 
-                    <p class="text-center text-muted mt-5 mb-0">Bạn đã có tài khoản? <a href="#!" class="fw-bold text-body"><u>Đăng nhập tại đây.</u></a></p>
+                    <p class="text-center text-muted mt-5 mb-0">Bạn đã có tài khoản? <a href="http://localhost:88/BTL_CSE/login/login.php" class="fw-bold text-body"><u>Đăng nhập tại đây.</u></a></p>
 
                 </form>
                 
