@@ -33,6 +33,7 @@
   <div class="swap">
     <header class="pb-5">
       <!-- Navbar -->
+      
       <div class="container ">
         <div class="row">
           <div class="col-md-12 ">
@@ -96,7 +97,7 @@
       <!-- Background image -->
     </header>
     <div class="main">
-        <div class="container rounded bg-white mt-5 mb-5">
+        <div class="container rounded bg-light mt-5 mb-5">
             <div class="row">
                 <div class="col-md-3 border-right">
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
@@ -174,6 +175,53 @@
             </div>
         </div>
     </div>
+    <div class="container mt-5">
+          <div class="row">
+            <footer class="bg-primary text-white text-center text-lg-start">
+              <!-- Grid container -->
+              <div class="container p-4">
+                <!--Grid row-->
+                <div class="row">
+                  <!--Grid column-->
+                  <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h4 class="text-uppercase">Cho phép người dùng</h4>
+
+                    <p>
+                      Quản lý thông tin cá nhân,
+                      Lên kế hoạch lịch làm việc với các kế hoạch làm việc được giao hoặc tạo mới các kế hoạch
+                      làm việc,
+                      Nhận thông báo về các lịch làm việc gần kề,
+                      Nhận email về các lịch làm việc gần kề.
+                    </p>
+                  </div>
+                  <!--Grid column-->
+
+                  <!--Grid column-->
+                  <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h4 class="text-uppercase">Cho phép người quản lý</h4>
+
+                    <p>
+                      Quản lý người sử dụng và các nhóm người sử dụng,
+                      Lên kế hoạch lịch làm việc cho các cá nhân hoặc cho các nhóm người sử dụng,
+                      Quản lý các kế hoạch làm việc và các nhóm kế hoạch làm việc,
+                      Gửi thông báo đến các người sử dụng hoặc các nhóm người sử dụng.
+                    </p>
+                  </div>
+                  <!--Grid column-->
+                </div>
+                <!--Grid row-->
+              </div>
+              <!-- Grid container -->
+
+              <!-- Copyright -->
+              <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2020 Copyright:
+                <a class="text-white">Nhóm 17</a>
+              </div>
+              <!-- Copyright -->
+            </footer>
+        </div>
+      </div>
   </div>
 </body>
 </html>
