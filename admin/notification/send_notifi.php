@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['login_ok']))
+        header("Location: http://localhost:88/BTL_CSE/login/login.php");
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -20,14 +25,12 @@
           </a>
 
           <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2 link-secondary">Trang chủ</a></li>
             <li><a href="../index.php" class="nav-link px-2 link-dark">Quản lý người dùng</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Quản lý nhóm</a></li>
             <li><a href="./send_notifi.php" class="nav-link px-2 link-dark">Gửi thông báo</a></li>
           </ul>
 
           <div class="col-md-3 text-end">
-            <button type="button" class="btn btn-light">Đăng xuất</button>
+            <a href="../logout.php" class="btn btn-success">Đăng xuất</a>
           </div>
       </header>
       </div>

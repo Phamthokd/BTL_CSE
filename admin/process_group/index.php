@@ -20,6 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="my_js.js"></script>
     
     <title>Quản lý người dùng</title>
 
@@ -70,19 +71,31 @@
     <div class="row">
       <div class="col-md-12 ">
         <?php
-          $email=$_GET['email'];
+          $conn = mysqli_connect('localhost','root','','btl_ql','3306');
+                          
+          if(!$conn){
+            die("kết nối thất bại. Kiểm tra lại");
+          }
+          $sql = "SELECT * FROM `group_users` a WHERE a.group_id = '1'";
+            $result = mysqli_query($conn,$sql);
+            if(mysqli_num_rows($result)>0){
+                while($row = mysqli_fetch_assoc($result)){
+                    $ID=$row['group_id'];
+                }
+            }
+
         ?>
         <script>
-          var email = <?php echo json_encode($email);?>;
-          async function getData() { 
-          const search = new URLSearchParams(window.location.search);
-          const data = await $.ajax({
-            url: "fetch-event.php?email=" + search.get('email'),
+        var ID = <?php echo json_encode($ID);?>;
+        async function getData() { 
+            const search = new URLSearchParams(window.location.search);
+            const data = await $.ajax({
+            url: "fetch-event.php?ID=" + search.get('ID'),
             type: "GET",
-          });
-          return JSON.parse(data);
-          };
-      
+            });
+            return JSON.parse(data);
+            };
+
 
         $(document).ready(async function () {
         const events = await getData();
@@ -107,7 +120,7 @@
                     var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
                     $.ajax({
                         url: 'add-event.php',
-                        data: 'title=' + title + '&start=' + start + '&end=' + end + '&email=' + email,
+                        data: 'title=' + title + '&start=' + start + '&end=' + end + '&ID=' + ID,
                         type: "POST",
                         success: function (data) {
                             calendar.fullCalendar('renderEvent',
@@ -151,19 +164,19 @@
                             if(parseInt(response) > 0) {
                                 $('#calendar').fullCalendar('removeEvents', event.id);
                                 displayMessage("Deleted Successfully");
-                              }
+                                }
                             }
-                          });
+                            });
                         }
                     }
                 });
-              });
+                });
 
-          function displayMessage(message) {
+            function displayMessage(message) {
             $(".response").html("<div class='success'>"+message+"</div>");
-              setInterval(function() { $(".success").fadeOut(); }, 1000);
-          }
-          </script>
+                setInterval(function() { $(".success").fadeOut(); }, 1000);
+            }
+            </script>
             <div class="response"></div>
             <div id='calendar'></div>
             <!-- <div class="d-flex justify-content-center">
