@@ -20,10 +20,9 @@
           </a>
 
           <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2 link-secondary">Trang chủ</a></li>
-            <li><a href="" class="nav-link px-2 link-dark">Quản lý người dùng</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Quản lý Nhóm</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Giới thiệu</a></li>
+            
+            <li><a href="./index.php" class="nav-link px-2 link-dark">Quản lý người dùng</a></li>
+            <li><a href="./notification/send_notifi.php" class="nav-link px-2 link-dark">Gửi thông báo</a></li>
           </ul>
 
           <div class="col-md-3 text-end">
@@ -63,7 +62,7 @@
               <th scope="col">Số điện thoại</th>
               <th scope="col">Nhóm</th>
               <th scope="col">Xóa</th>
-              <th scope="col">Thêm công việc</th>
+              <th scope="col">công việc</th>
             </tr>
           </thead>
           <tbody>
@@ -73,7 +72,7 @@
               include('../config/db.php');
 
               //bước 2 khai báo câu lệnh thực thi và thực hiện truy vấn
-              $sql = "SELECT * FROM infor_users a, users b where a.userid=b.userid";
+              $sql = "SELECT * FROM infor_users a, users b, group_users c where a.userid=b.userid and a.group_id=c.group_id";
               $result = mysqli_query($conn,$sql);
 
               //bước 3 xử lý kết quả trả về
@@ -89,7 +88,7 @@
               <td><?php echo $row['date']; ?> </td>
               <td><?php echo $row['gender']; ?> </td>
               <td><?php echo $row['phone_number']; ?> </td>
-              <td><?php echo $row['group_id']; ?> </td>
+              <td><?php echo $row['group_name']; ?> </td>
               <td><a href="./process_users/delete_users.php?infor_id=<?php echo $row['infor_id']; ?>"><i class="fas fa-trash"></i></a></td>
               <td><a href="./process_users/calender_user.php?email=<?php echo $row['email']; ?>"><i class="fas fa-plus-square"></i></a></td>
             </tr>
@@ -106,7 +105,7 @@
     </div>
     <div class="container">
       <div class="row">
-        <footer class="p-5 d-flex justify-content-center bg-secondary py-3 text-white">
+        <footer class="p-5 mt-5 d-flex justify-content-center bg-secondary py-3 text-white">
           <ul class="nav nav-pills">
             <li class="nav-item">Bài Tập Lớn Nhóm 17</li>
           </ul>
