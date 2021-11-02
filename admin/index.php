@@ -17,7 +17,7 @@
 
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
-    <title>Quản lý người dùng</title>
+    <title>Admin</title>
   </head>
   <body>
   <div class="swap">
@@ -54,10 +54,10 @@
               <!-- Left links -->
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="./index.php">Quản lý người dùng</a>
+                  <a class="nav-link" href="./index.php"><i class="fas fa-users"></i> Quản lý người dùng</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="./notification/send_notifi.php">Gửi thông báo</a>
+                  <a class="nav-link" href="./notification/send_notifi.php">Thông báo</a>
                 </li>
                 <!-- <li class="nav-item">
                   <a class="nav-link" href="#">Projects</a>
@@ -67,7 +67,7 @@
             </div>
             <!-- Collapsible wrapper -->
             <div class="d-flex align-items-center">
-            <!-- Right elements -->
+              <!-- Right elements -->
                 <!-- Notifications -->
                 <a
                   class="text-reset me-3 dropdown-toggle hidden-arrow"
@@ -77,7 +77,8 @@
                   data-mdb-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <i class="fas fa-bell"></i>
+                  <i class="fas fa-paper-plane"></i>
+                  
                   <span class="badge rounded-pill badge-notification bg-danger">
                       <?php
                           $conn = mysqli_connect('localhost','root','','btl_ql','3306');
@@ -85,7 +86,7 @@
                           if(!$conn){
                           die("kết nối thất bại. Kiểm tra lại");
                           }
-                          $sql = "SELECT * FROM plan c WHERE DATEDIFF(c.date_start,CURDATE())=2 or DATEDIFF(c.date_start,CURDATE())=1";
+                          $sql = "SELECT * FROM `infor_users` a, users b , plan c WHERE a.userid=b.userid and c.infor_id=a.infor_id AND DATEDIFF(c.date_start,CURDATE())=2 or a.userid=b.userid and c.infor_id=a.infor_id AND DATEDIFF(c.date_start,CURDATE())=1";
                           $result = mysqli_query($conn,$sql);
                           echo (mysqli_num_rows($result));
                       ?>
@@ -101,10 +102,11 @@
                         while($row = mysqli_fetch_assoc($result)){
                     ?>
                   <li>
-                    <a class="dropdown-item" href="./process_users/send_mail.php">
+                    <a class="dropdown-item" href="send_mail.php">
+                          
                       <div class="mr-3">
                       <div class="small text-gray-500"><i class="fas fa-calendar-alt"></i><?php echo ' '.$row['date_start'].'';?></div>
-                      <span class="font-weight-bold"><?php echo ''.$row['title'].'';?></span>
+                      <span class="font-weight-bold"><?php echo ''.$row['title'].'';?> của <?php echo ''.$row['email'].'';?> </span>
                         
                     </div> 
 
@@ -135,6 +137,9 @@
                 class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdownMenuLink"
               >
+                <li>
+                  <a class="dropdown-item" href="#">Đổi mật khẩu</a>
+                </li>
                 <li>
                   <a class="dropdown-item" href="logout.php">Đăng xuất</a>
                 </li>

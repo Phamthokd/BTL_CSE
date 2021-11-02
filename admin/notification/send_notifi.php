@@ -14,7 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet"/>
-    <title>Quản lý người dùng</title>
+    <title>Admin</title>
   </head>
 <body>
   <div class="swap">
@@ -50,10 +50,10 @@
               <!-- Left links -->
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="../index.php">Quản lý người dùng</a>
+                  <a class="nav-link" href="../index.php"><i class="fas fa-users"></i> Quản lý người dùng</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="./send_notifi.php">Gửi thông báo</a>
+                  <a class="nav-link" href="./send_notifi.php">Thông báo</a>
                 </li>
                 <!-- <li class="nav-item">
                   <a class="nav-link" href="#">Projects</a>
@@ -63,8 +63,57 @@
             </div>
             <!-- Collapsible wrapper -->
 
+            <div class="d-flex align-items-center">
             <!-- Right elements -->
-            
+                <!-- Notifications -->
+                <a
+                  class="text-reset me-3 dropdown-toggle hidden-arrow"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-paper-plane"></i>
+                  
+                  <span class="badge rounded-pill badge-notification bg-danger">
+                      <?php
+                          $conn = mysqli_connect('localhost','root','','btl_ql','3306');
+                                          
+                          if(!$conn){
+                          die("kết nối thất bại. Kiểm tra lại");
+                          }
+                          $sql = "SELECT * FROM `infor_users` a, users b , plan c WHERE a.userid=b.userid and c.infor_id=a.infor_id AND DATEDIFF(c.date_start,CURDATE())=2 or a.userid=b.userid and c.infor_id=a.infor_id AND DATEDIFF(c.date_start,CURDATE())=1";
+                          $result = mysqli_query($conn,$sql);
+                          echo (mysqli_num_rows($result));
+                      ?>
+                  
+                  </span>
+                </a>
+                <ul
+                  class="dropdown-menu dropdown-menu-end"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                    <?php
+                      if(mysqli_num_rows($result)>0){
+                        while($row = mysqli_fetch_assoc($result)){
+                    ?>
+                  <li>
+                    <a class="dropdown-item" href="send_mail.php">
+                          
+                      <div class="mr-3">
+                      <div class="small text-gray-500"><i class="fas fa-calendar-alt"></i><?php echo ' '.$row['date_start'].'';?></div>
+                      <span class="font-weight-bold"><?php echo ''.$row['title'].'';?> của <?php echo ''.$row['email'].'';?> </span>
+                        
+                    </div> 
+
+                    </a>
+                    <?php
+                        }}
+                    ?>
+                  </li>
+                </ul>  
+
               <!-- Avatar -->
               <a
                 class="dropdown-toggle d-flex align-items-center hidden-arrow"
@@ -91,9 +140,10 @@
                 </li>
               </ul>
             </div>
-          </nav>
-        </div>
+          </div>
+        </nav>
       </div>
+    </div>
 
     <div class="container">
         <div class="row">

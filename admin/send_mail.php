@@ -32,9 +32,9 @@
                         $mail->Port = 587; // TCP port to connect to
                         $mail->CharSet = 'UTF-8';
                         //Recipients
-                        $mail->setFrom('phamthokd@gmail.com', 'ADMIN thông báo');
+                        $mail->setFrom('phamthokd@gmail.com','ADMIN thông báo');
                     
-                        $mail->addReplyTo('phamthokd@gmail.com', 'ADMIN thông báo');
+                        $mail->addReplyTo('phamthokd@gmail.com','ADMIN thông báo');
                         
                         $mail->addAddress($email); // địa chỉ người nhận
                         
@@ -49,26 +49,27 @@
                         
                         // Mail body content 
                         $bodyContent = '<h2>Xin chào bạn</h2>';
-                        $bodyContent .= '<p>bạn có 1 công việc</p>';
-                        $bodyContent = $content; 
-                        
-                    
+                        $bodyContent .= '<p>Bạn có lịch cần hoàn thiện trong thời gian tới</p>';
+                        $bodyContent .= '<p>Nội dung:'.$content.'</p>'; 
+                        $bodyContent .= '<p>Ngày: '.$date.'</p>'; 
+                        $bodyContent .= '<p><a href="http://localhost:88/BTL_CSE/login/login.php">click</a> để biết thêm chi tiết</p>';
                         
                         
                         $mail->Body = $bodyContent;
                         // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
                         if($mail->send()){
                             $values = "success";
-                                echo 'thành công';
+                                header('location: http://localhost:88/BTL_CSE/admin/index.php');
                         }else{
                             $values = "fail";
-                                echo 'thất bại';
+                                header('location: http://localhost:88/BTL_CSE/admin/index.php');
                         }  
                 
                     } catch (Exception $e) {
                         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                     }
-                }       
+                }
+                       
             }
 
 ?>
