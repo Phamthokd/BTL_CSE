@@ -158,6 +158,9 @@
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <li>
+                  <a class="dropdown-item" href="../process_admin/change_pass.php">Đổi mật khẩu</a>
+                </li>
+                <li>
                   <a class="dropdown-item" href="logout.php">Đăng xuất</a>
                 </li>
               </ul>

@@ -53,7 +53,7 @@
                   <a class="nav-link" href="../index.php"><i class="fas fa-users"></i> Quản lý người dùng</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="./send_notifi.php">Thông báo</a>
+                  <a class="nav-link" href="../notification/send_notifi.php">Thông báo</a>
                 </li>
                 <!-- <li class="nav-item">
                   <a class="nav-link" href="#">Projects</a>
@@ -136,10 +136,10 @@
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <li>
-                  <a class="dropdown-item" href="../process_admin/change_pass.php">Đổi mật khẩu</a>
+                  <a class="dropdown-item" href="./change_pass.php">Thay đổi mật khẩu</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="logout.php">Đăng xuất</a>
+                  <a class="dropdown-item" href="../logout.php">Đăng xuất</a>
                 </li>
               </ul>
             </div>
@@ -147,36 +147,57 @@
         </nav>
       </div>
     </div>
-
+    
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 ">
-            <form action="process_send.php" method="post">
-            <div class="mb-3">
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-center text-center my-5">
+            <form action="process_pass.php" method="post">
+                <!-- Email input -->
                     <?php
                         if(isset($_GET['response'])){
-                            if($_GET['response']=='success'){
-                                echo "<p class='text-danger'>Thư gửi thành công</p>";
+                            if($_GET['response']=='fail1'){
+                                echo "<p class='text-danger'>Mật khẩu không đúng</p>";
                             }
-                            if($_GET['response']=='fail'){
-                                echo "<p class='text-danger'>Thư gửi thất bại</p>";
+                            if($_GET['response']=='fail2'){
+                                echo "<p class='text-danger'>Mật khẩu không khớp nhau</p>";
+                            }
+                            if($_GET['response']=='success'){
+                                echo "<p class='text-danger'>Thay đổi mật khẩu thành công</p>";
                             }
                         }
                     ?>
-                <label for="content" class="form-label">Nhập nội dung cần thông báo</label>
-                <textarea class="form-control" id="content" rows="13" name="content" placeholder="Nội dung ..."></textarea>
-            </div>
-                <button type="submit" class="btn btn-primary" name="btn_send">Gửi</button>
-            </form>
 
-            </div>
+                <div class="form-outline mb-4">
+                    <input type="password" id="form1Example1" class="form-control" name="pass1"/>
+                    <label class="form-label" for="form1Example1">Nhập mật khẩu hiện tại</label>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <input type="password" id="form1Example2" class="form-control" name="pass2"/>
+                    <label class="form-label" for="form1Example2">Mật khẩu mới</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input type="password" id="form1Example2" class="form-control" name="pass3"/>
+                    <label class="form-label" for="form1Example2">Xác nhận mật khẩu</label>
+                </div>
+
+                <!-- 2 column grid layout for inline styling -->
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block" name="btn_save">Lưu</button>
+            </form>
         </div>
+      </div>
     </div>
+    
+
 
 
     <div class="container">
       <div class="row">
-      <footer class="bg-light text-center text-white">
+      <footer class="bg-light text-center text-white mt-5">
           <!-- Grid container -->
           <div class="container p-4 pb-0">
             <!-- Section: Social media -->
