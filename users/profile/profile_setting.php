@@ -141,53 +141,7 @@
             </div>
         </div>
     </div>
-    <div class="container mt-5">
-          <div class="row">
-            <footer class="bg-primary text-white text-center text-lg-start">
-              <!-- Grid container -->
-              <div class="container p-4">
-                <!--Grid row-->
-                <div class="row">
-                  <!--Grid column-->
-                  <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h4 class="text-uppercase">Cho phép người dùng</h4>
-
-                    <p>
-                      Quản lý thông tin cá nhân,
-                      Lên kế hoạch lịch làm việc với các kế hoạch làm việc được giao hoặc tạo mới các kế hoạch
-                      làm việc,
-                      Nhận thông báo về các lịch làm việc gần kề,
-                      Nhận email về các lịch làm việc gần kề.
-                    </p>
-                  </div>
-                  <!--Grid column-->
-
-                  <!--Grid column-->
-                  <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h4 class="text-uppercase">Cho phép người quản lý</h4>
-
-                    <p>
-                      Quản lý người sử dụng và các nhóm người sử dụng,
-                      Lên kế hoạch lịch làm việc cho các cá nhân hoặc cho các nhóm người sử dụng,
-                      Quản lý các kế hoạch làm việc và các nhóm kế hoạch làm việc,
-                      Gửi thông báo đến các người sử dụng hoặc các nhóm người sử dụng.
-                    </p>
-                  </div>
-                  <!--Grid column-->
-                </div>
-                <!--Grid row-->
-              </div>
-              <!-- Grid container -->
-
-              <!-- Copyright -->
-              <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-                © 2020 Copyright:
-                <a class="text-white">Nhóm 17</a>
-              </div>
-              <!-- Copyright -->
-            </footer>
-        </div>
-      </div><div class="container mt-5">
+        <div class="container mt-5">
           <div class="row">
             <footer class="text-center text-white" style="background-color: #f1f1f1;">
               <!-- Grid container -->
@@ -254,7 +208,7 @@
               <!-- Copyright -->
               <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                 © 2020 Copyright:
-                <a class="text-dark" href="#">MDBootstrap.com</a>
+                <a class="text-dark" href="#">Nhóm 17</a>
               </div>
               <!-- Copyright -->
             </footer>
