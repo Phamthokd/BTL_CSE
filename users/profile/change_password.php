@@ -28,45 +28,47 @@ if (!isset($_SESSION['login_ok']))
     <?php include('./menu.php') ?>
     <div class="main">
         <div class="container rounded bg-white mt-5 mb-5">
-            <form action="process_change_password.php" method="post">
-                <!-- Email input -->
-                    <?php
-                        if(isset($_GET['response'])){
-                            if($_GET['response']=='fail1'){
-                                echo "<p class='text-danger'>Mật khẩu không đúng</p>";
+            <div class="col-md-12 d-flex justify-content-center text-center my-5">
+                <form action="process_change_password.php" method="post">
+                    <!-- Email input -->
+                        <?php
+                            if(isset($_GET['response'])){
+                                if($_GET['response']=='fail1'){
+                                    echo "<p class='text-danger'>Mật khẩu không đúng</p>";
+                                }
+                                if($_GET['response']=='fail2'){
+                                    echo "<p class='text-danger'>Mật khẩu không khớp nhau</p>";
+                                }
+                                if($_GET['response']=='success'){
+                                    echo "<p class='text-danger'>Thay đổi mật khẩu thành công</p>";
+                                }
                             }
-                            if($_GET['response']=='fail2'){
-                                echo "<p class='text-danger'>Mật khẩu không khớp nhau</p>";
-                            }
-                            if($_GET['response']=='success'){
-                                echo "<p class='text-danger'>Thay đổi mật khẩu thành công</p>";
-                            }
-                        }
-                    ?>
+                        ?>
 
-                <div class="form-outline mb-4">
-                    <?php $id = $_GET['id']; ?>
-                    <input type="hidden"  class="form-control" name="users_id" value="<?php echo $id ?>"/>
-                    <input type="password" id="form1Example1" class="form-control" name="pass1"/>
-                    <label class="form-label" for="form1Example1">Nhập mật khẩu hiện tại</label>
-                </div>
+                    <div class="form-outline mb-4">
+                        <?php $id = $_GET['id']; ?>
+                        <input type="hidden"  class="form-control" name="users_id" value="<?php echo $id ?>"/>
+                        <input type="password" id="form1Example1" class="form-control" name="pass1"/>
+                        <label class="form-label" for="form1Example1">Nhập mật khẩu hiện tại</label>
+                    </div>
 
-                <!-- Password input -->
-                <div class="form-outline mb-4">
-                    <input type="password" id="form1Example2" class="form-control" name="pass2"/>
-                    <label class="form-label" for="form1Example2">Mật khẩu mới</label>
-                </div>
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="form1Example2" class="form-control" name="pass2"/>
+                        <label class="form-label" for="form1Example2">Mật khẩu mới</label>
+                    </div>
 
-                <div class="form-outline mb-4">
-                    <input type="password" id="form1Example2" class="form-control" name="pass3"/>
-                    <label class="form-label" for="form1Example2">Xác nhận mật khẩu</label>
-                </div>
+                    <div class="form-outline mb-4">
+                        <input type="password" id="form1Example2" class="form-control" name="pass3"/>
+                        <label class="form-label" for="form1Example2">Xác nhận mật khẩu</label>
+                    </div>
 
-                <!-- 2 column grid layout for inline styling -->
+                    <!-- 2 column grid layout for inline styling -->
 
-                <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-block" name="btn_save">Lưu</button>
-            </form>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-block" name="btn_save">Lưu</button>
+                </form>
+            </div>
         </div>
     </div>
   </div>
