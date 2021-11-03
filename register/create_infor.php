@@ -76,7 +76,7 @@
                         </div>
                         <div class="col-sm-4">
                             <label class="radio-inline">
-                                <input type="radio" id="maleRadio" name="gender" <?php if (isset($gender) && $gender=="khác") echo "checked";?> value="khác">Nam
+                                <input type="radio" id="maleRadio" name="gender" <?php if (isset($gender) && $gender=="khác") echo "checked";?> value="khác">Khác
                             </label>
                         </div>
                     </div>
