@@ -7,9 +7,9 @@
 <html lang="en">
 <head>
 <link rel="stylesheet" href="fullcalendar/fullcalendar.min.css" />
-<script src="fullcalendar/lib/jquery.min.js"></script>
-<script src="fullcalendar/lib/moment.min.js"></script>
-<script src="fullcalendar/fullcalendar.min.js"></script>
+<script src="../fullcalendar/lib/jquery.min.js"></script>
+<script src="../fullcalendar/lib/moment.min.js"></script>
+<script src="../fullcalendar/fullcalendar.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
@@ -40,77 +40,32 @@
 </head>
 <body>
 <div class="swap">
-    <header class="pb-5">
-      <!-- Navbar -->
-      
-        
-            <nav class="navbar navbar-expand-lg navbar-light bg-white">
-              <div class="container-fluid">
-                <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-mdb-toggle="collapse"
-                        data-mdb-target="#navbarExample01"
-                        aria-controls="navbarExample01"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation">
-                  <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarExample01">
-                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item active">
-                    <?php
-                      $conn = mysqli_connect('localhost','root','','btl_ql','3306');
-                                      
-                      if(!$conn){
-                        die("kết nối thất bại. Kiểm tra lại");
-                      }
-                      if(isset($_GET['id']))
-                      $userid = $_GET['id'];
-                      $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and a.infor_id = '$userid'";
-                      $result = mysqli_query($conn,$sql);
-                      if(mysqli_num_rows($result)>0){
-                        while($row = mysqli_fetch_assoc($result)){
-                          $email=$row['email'];
-                      ?>
-                      <a class="nav-link" aria-current="page" href="http://localhost:88/BTL_CSE/users/?email=<?php echo $email ?>">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:88/BTL_CSE/users/profile/detail_infor_users.php?id=<?php echo $row['infor_id'];?>">Thông tin cá nhân</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">hỗ trợ</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="flex-shrink-0 dropdown">
-                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"" alt="mdo" width="32" height="32" class="rounded-circle">
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                  
-                  <li><a class="dropdown-item" href="#">Settings</a></li>
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Sign out</a></li>
-                </ul>
-                </div>
-              </div>
-            </nav>
-              <!-- Navbar -->
-              <!-- Background image -->
-
-      
-      <!-- Background image -->
-    </header>
+  <div class="container">
+    <div class="row">
+      <?php include('./menu.php') ?>
+    </div>
+  </div>
     <div class="main">
-        <div class="container rounded bg-white mt-5 mb-5">
+        <div class="container rounded bg-light mt-5 mb-5">
             <div class="row">
                 <div class="col-md-3 border-right">
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                        <?php
-                          echo ''.$row['first_name'].' '.$row['last_name'].'';
-                        ?>
+                      <?php
+                        $conn = mysqli_connect('localhost', 'root', '', 'btl_ql', '3306');
+
+                        if (!$conn) {
+                          die("kết nối thất bại. Kiểm tra lại");
+                        }
+                        if (isset($_GET['id']))
+                          $userid = $_GET['id'];
+                        $sql = "SELECT * FROM `infor_users` a, users b WHERE a.userid=b.userid and a.infor_id = '$userid'";
+                        $result = mysqli_query($conn, $sql);
+                        if (mysqli_num_rows($result) > 0) {
+                          while ($row = mysqli_fetch_assoc($result)) {
+                      ?>
+                      <?php
+                        echo ''.$row['first_name'].' '.$row['last_name'].'';
+                      ?>
                     <span class="font-weight-bold"></span><span class="text-black-50"></span><span>
                       <?php echo ''.$row['email'].'';}} ?>
                     </span></div>
@@ -186,6 +141,79 @@
             </div>
         </div>
     </div>
+        <div class="container mt-5">
+          <div class="row">
+            <footer class="text-center text-white" style="background-color: #f1f1f1;">
+              <!-- Grid container -->
+              <div class="container pt-4">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+                  <!-- Facebook -->
+                  <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-facebook-f"></i
+                  ></a>
+
+                  <!-- Twitter -->
+                  <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-twitter"></i
+                  ></a>
+
+                  <!-- Google -->
+                  <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-google"></i
+                  ></a>
+
+                  <!-- Instagram -->
+                  <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+
+                  <!-- Linkedin -->
+                  <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-linkedin"></i
+                  ></a>
+                  <!-- Github -->
+                  <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-github"></i
+                  ></a>
+                </section>
+                <!-- Section: Social media -->
+              </div>
+              <!-- Grid container -->
+
+              <!-- Copyright -->
+              <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2020 Copyright:
+                <a class="text-dark" href="#">Nhóm 17</a>
+              </div>
+              <!-- Copyright -->
+            </footer>
+        </div>
+      </div>
     
 </div>
 
