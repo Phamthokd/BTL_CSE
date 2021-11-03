@@ -127,17 +127,15 @@
                             $result = mysqli_query($conn, $sql);
                             if (mysqli_num_rows($result) > 0) {
                                 while ($row = mysqli_fetch_assoc($result)) { ?>
-                                    <a class="dropdown-item" href="http://localhost:88/BTL_CSE/users/profile/profile_setting.php?id=<?php echo $row['infor_id']; ?>"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>sửa thông tin</a>
-
+                                    <a class="dropdown-item" href="http://localhost:88/BTL_CSE/users/profile/profile_setting.php?id=<?php echo $row['infor_id']; ?>"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Sửa thông tin</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="http://localhost:88/BTL_CSE/logout/logout.php?id=<?php echo $row['infor_id'];
-
-                                                                                                                    ?>"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Đăng xuất</a>
+                                    <a class="dropdown-item" href="http://localhost:88/BTL_CSE/users/profile/change_password.php?id=<?php echo $row['infor_id']; ?>"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Đổi mật khẩu</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="http://localhost:88/BTL_CSE/logout/logout.php?id=<?php echo $row['infor_id'];?>"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Đăng xuất</a>
                             <?php }
                             } ?>
                         </div>
                     </li>
-
                 </ul>
             </nav>
             <div class="p-5 text-center bg-image" style="background-image: url('https://mdbootstrap.com/img/new/slides/041.jpg'); height: 200px;">
