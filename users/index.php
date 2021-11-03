@@ -53,7 +53,7 @@
 
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item active">
-                      <a class="nav-link" aria-current="page" href="#">Trang chủ</a>
+                      <a class="nav-link" aria-current="page" href="http://localhost:88/BTL_CSE/users/?email=<?php echo $row['email']; ?>">Trang chủ</a>
                   </li>
                   <!--  -->
                   <li class="nav-item">
@@ -175,7 +175,8 @@
                       if(mysqli_num_rows($result)>0){
                         while($row = mysqli_fetch_assoc($result)){?>
                       <a class="dropdown-item" href="http://localhost:88/BTL_CSE/users/profile/profile_setting.php?id=<?php echo $row['infor_id'];?>"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>sửa thông tin</a>
-
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="http://localhost:88/BTL_CSE/users/profile/change_password.php?id=<?php echo $row['infor_id']; ?>"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Đổi mật khẩu</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="http://localhost:88/BTL_CSE/logout/logout.php?id=<?php echo $row['infor_id'];}}?>"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Đăng xuất</a>
                   </div>
