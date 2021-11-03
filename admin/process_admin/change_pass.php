@@ -14,17 +14,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet"/>
-
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
     <title>Admin</title>
   </head>
-  <body>
+<body>
   <div class="swap">
     <div class="container">
       <div class="row">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <!-- Container wrapper -->
           <div class="container-fluid">
             <!-- Toggle button -->
@@ -54,10 +50,10 @@
               <!-- Left links -->
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="./index.php"><i class="fas fa-users"></i> Quản lý người dùng</a>
+                  <a class="nav-link" href="../index.php"><i class="fas fa-users"></i> Quản lý người dùng</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="./notification/send_notifi.php">Thông báo</a>
+                  <a class="nav-link" href="../notification/send_notifi.php">Thông báo</a>
                 </li>
                 <!-- <li class="nav-item">
                   <a class="nav-link" href="#">Projects</a>
@@ -66,8 +62,9 @@
               <!-- Left links -->
             </div>
             <!-- Collapsible wrapper -->
+
             <div class="d-flex align-items-center">
-              <!-- Right elements -->
+            <!-- Right elements -->
                 <!-- Notifications -->
                 <a
                   class="text-reset me-3 dropdown-toggle hidden-arrow"
@@ -115,7 +112,8 @@
                         }}
                     ?>
                   </li>
-                </ul>
+                </ul>  
+
               <!-- Avatar -->
               <a
                 class="dropdown-toggle d-flex align-items-center hidden-arrow"
@@ -138,95 +136,68 @@
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <li>
-                  <a class="dropdown-item" href="./process_admin/change_pass.php">Đổi mật khẩu</a>
+                  <a class="dropdown-item" href="./change_pass.php">Thay đổi mật khẩu</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="logout.php">Đăng xuất</a>
+                  <a class="dropdown-item" href="../logout.php">Đăng xuất</a>
                 </li>
               </ul>
             </div>
-          
           </div>
-          
         </nav>
-
       </div>
-
+    </div>
     
     <div class="container">
       <div class="row">
-      <div class="content">
-        <div class="col-md-12">
-          <table class="table table-striped">
-              <thead>
-              <?php
-                  if(isset($_GET['response'])){
-                      if($_GET['response']=='success'){
-                        echo "<p class='text-danger'>Xóa thành công</p>";
-                      }                        
-                    }
-              ?>
-              <?php
-                  if(isset($_GET['response'])){
-                      if($_GET['response']=='fail'){
-                        echo "<p class='text-danger'>Xóa thất bại</p>";
-                      }                        
-                    }
-              ?>
-            <tr>
-              <th scope="col">STT</th>
-              <th scope="col">Họ Tên</th>
-              <th scope="col">Tuổi</th>
-              <th scope="col">Địa chỉ</th>
-              <th scope="col">Ngày sinh</th>
-              <th scope="col">Giới tính</th>
-              <th scope="col">Số điện thoại</th>
-              <th scope="col">Nhóm</th>
-              <th scope="col">Xóa</th>
-              <th scope="col">công việc</th>
-            </tr>
-          </thead>
-          <tbody>
-          <?php
-              //lấy dữ liệu từ CSDL và để ra bảng (phần lặp lại)
-              //bước 1:kết nối tời csdl(mysql)
-              include('../config/db.php');
+        <div class="col-md-12 d-flex justify-content-center text-center my-5">
+            <form action="process_pass.php" method="post">
+                <!-- Email input -->
+                    <?php
+                        if(isset($_GET['response'])){
+                            if($_GET['response']=='fail1'){
+                                echo "<p class='text-danger'>Mật khẩu không đúng</p>";
+                            }
+                            if($_GET['response']=='fail2'){
+                                echo "<p class='text-danger'>Mật khẩu không khớp nhau</p>";
+                            }
+                            if($_GET['response']=='success'){
+                                echo "<p class='text-danger'>Thay đổi mật khẩu thành công</p>";
+                            }
+                        }
+                    ?>
 
-              //bước 2 khai báo câu lệnh thực thi và thực hiện truy vấn
-              $sql = "SELECT * FROM infor_users a, users b, group_users c where a.userid=b.userid and a.group_id=c.group_id";
-              $result = mysqli_query($conn,$sql);
+                <div class="form-outline mb-4">
+                    <input type="password" id="form1Example1" class="form-control" name="pass1"/>
+                    <label class="form-label" for="form1Example1">Nhập mật khẩu hiện tại</label>
+                </div>
 
-              //bước 3 xử lý kết quả trả về
-              if(mysqli_num_rows($result) > 0){
-                  $i=1;
-                  while($row = mysqli_fetch_assoc($result)){
-          ?>
-            <tr>
-            <th scope="row"><?php echo $i; ?> </th>
-              <td><?php echo $row['first_name']; ?> <?php echo $row['last_name']; ?> </td>
-              <td><?php echo $row['age']; ?> </td>
-              <td><?php echo $row['address']; ?> </td>
-              <td><?php echo $row['date']; ?> </td>
-              <td><?php echo $row['gender']; ?> </td>
-              <td><?php echo $row['phone_number']; ?> </td>
-              <td><?php echo $row['group_name']; ?> </td>
-              <td><a href="./process_users/delete_users.php?infor_id=<?php echo $row['infor_id']; ?>"><i class="fas fa-trash"></i></a></td>
-              <td><a href="./process_users/calender_user.php?email=<?php echo $row['email']; ?>"><i class="fas fa-plus-square"></i></a></td>
-            </tr>
-            <?php
-              $i++;
-                  }
-              }
-              ?>
-            </tbody>
-          </table>
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <input type="password" id="form1Example2" class="form-control" name="pass2"/>
+                    <label class="form-label" for="form1Example2">Mật khẩu mới</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input type="password" id="form1Example2" class="form-control" name="pass3"/>
+                    <label class="form-label" for="form1Example2">Xác nhận mật khẩu</label>
+                </div>
+
+                <!-- 2 column grid layout for inline styling -->
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block" name="btn_save">Lưu</button>
+            </form>
         </div>
       </div>
-      </div>
     </div>
+    
+
+
+
     <div class="container">
       <div class="row">
-        <footer class="bg-light text-center text-white">
+      <footer class="bg-light text-center text-white mt-5">
           <!-- Grid container -->
           <div class="container p-4 pb-0">
             <!-- Section: Social media -->
@@ -297,19 +268,6 @@
         </footer>
       </div>
     </div>
-    
-    
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
-      <!-- Optional JavaScript; choose one of the two! -->
-
-      <!-- Option 1: Bootstrap Bundle with Popper -->
-      <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
-
-      <!-- Option 2: Separate Popper and Bootstrap JS -->
-      <!--
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-      -->
   </div>
-  </body>
-</html>
+</body>

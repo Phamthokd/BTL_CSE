@@ -3,27 +3,47 @@
     if(!isset($_SESSION['login_ok']))
         header("Location: http://localhost:88/BTL_CSE/login/login.php");
 ?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html>
 
-    <!-- Bootstrap CSS -->
+<head>
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet"/>
-
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
+    <link rel="stylesheet" href="fullcalendar/fullcalendar.min.css" />
+    <script src="fullcalendar/lib/jquery.min.js"></script>
+    <script src="fullcalendar/lib/moment.min.js"></script>
+    <script src="fullcalendar/fullcalendar.min.js"></script>
+    
+    
     <title>Admin</title>
-  </head>
-  <body>
-  <div class="swap">
+
+<style>
+
+#calendar {
+    width: 700px;
+    margin: 0 auto;
+}
+
+.response {
+    height: 60px;
+}
+
+.success {
+    background: #cdf3cd;
+    padding: 10px 60px;
+    border: #c3e6c3 1px solid;
+    display: inline-block;
+}
+</style>
+</head>
+<body>
+    
+
+<div class="swap">
     <div class="container">
       <div class="row">
-        <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <!-- Container wrapper -->
           <div class="container-fluid">
@@ -54,10 +74,10 @@
               <!-- Left links -->
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="./index.php"><i class="fas fa-users"></i> Quản lý người dùng</a>
+                  <a class="nav-link" href="../index.php"><i class="fas fa-users"></i> Quản lý người dùng</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="./notification/send_notifi.php">Thông báo</a>
+                  <a class="nav-link" href="../notification/send_notifi.php">Thông báo</a>
                 </li>
                 <!-- <li class="nav-item">
                   <a class="nav-link" href="#">Projects</a>
@@ -67,7 +87,7 @@
             </div>
             <!-- Collapsible wrapper -->
             <div class="d-flex align-items-center">
-              <!-- Right elements -->
+            <!-- Right elements -->
                 <!-- Notifications -->
                 <a
                   class="text-reset me-3 dropdown-toggle hidden-arrow"
@@ -115,7 +135,7 @@
                         }}
                     ?>
                   </li>
-                </ul>
+                </ul>  
               <!-- Avatar -->
               <a
                 class="dropdown-toggle d-flex align-items-center hidden-arrow"
@@ -138,91 +158,125 @@
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <li>
-                  <a class="dropdown-item" href="./process_admin/change_pass.php">Đổi mật khẩu</a>
+                  <a class="dropdown-item" href="../process_admin/change_pass.php">Đổi mật khẩu</a>
                 </li>
                 <li>
                   <a class="dropdown-item" href="logout.php">Đăng xuất</a>
                 </li>
               </ul>
             </div>
-          
-          </div>
-          
-        </nav>
-
+            </div>
+          </nav>
       </div>
+    </div>
+  
 
-    
-    <div class="container">
-      <div class="row">
-      <div class="content">
-        <div class="col-md-12">
-          <table class="table table-striped">
-              <thead>
-              <?php
-                  if(isset($_GET['response'])){
-                      if($_GET['response']=='success'){
-                        echo "<p class='text-danger'>Xóa thành công</p>";
-                      }                        
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 ">
+        <?php
+          $email=$_GET['email'];
+        ?>
+        <script>
+          var email = <?php echo json_encode($email);?>;
+          async function getData() { 
+          const search = new URLSearchParams(window.location.search);
+          const data = await $.ajax({
+            url: "fetch-event.php?email=" + search.get('email'),
+            type: "GET",
+          });
+          return JSON.parse(data);
+          };
+      
+
+        $(document).ready(async function () {
+        const events = await getData();
+        var calendar = $('#calendar').fullCalendar({
+            editable: true,
+            events: events,
+            displayEventTime: false,
+            eventRender: function (event, element, view) {
+                if (event.allDay === 'true') {
+                    event.allDay = true;
+                } else {
+                    event.allDay = false;
+                }
+            },
+            selectable: true,
+            selectHelper: true,
+            select: function (start, end, allDay) {
+                var title = prompt('Event Title:');
+                
+                if (title) {
+                    var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+                    var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+                    $.ajax({
+                        url: 'add-event.php',
+                        data: 'title=' + title + '&start=' + start + '&end=' + end + '&email=' + email,
+                        type: "POST",
+                        success: function (data) {
+                            calendar.fullCalendar('renderEvent',
+                            {
+                                id: data,
+                                title: title,
+                                start: start,
+                                end: end,
+                                allDay: allDay
+                            },
+                                true
+                            );
+                            displayMessage("Added Successfully");
+                        }
+                    });
+                }
+                calendar.fullCalendar('unselect');
+            },
+            editable: true,
+            eventDrop: function (event, delta) {
+                        var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+                        var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+                        $.ajax({
+                            url: 'edit-event.php',
+                            data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
+                            type: "POST",
+                            success: function (response) {
+                                displayMessage("Updated Successfully");
+                            }
+                        });
+                    },
+            eventClick: function (event) {
+                var deleteMsg = confirm("Do you really want to delete?");
+                if (deleteMsg) {
+                    console.log(event.id)
+                    $.ajax({
+                        type: "POST",
+                        url: "delete-event.php",
+                        data: "&id=" + event.id,
+                        success: function (response) {
+                            if(parseInt(response) > 0) {
+                                $('#calendar').fullCalendar('removeEvents', event.id);
+                                displayMessage("Deleted Successfully");
+                              }
+                            }
+                          });
+                        }
                     }
-              ?>
-              <?php
-                  if(isset($_GET['response'])){
-                      if($_GET['response']=='fail'){
-                        echo "<p class='text-danger'>Xóa thất bại</p>";
-                      }                        
-                    }
-              ?>
-            <tr>
-              <th scope="col">STT</th>
-              <th scope="col">Họ Tên</th>
-              <th scope="col">Tuổi</th>
-              <th scope="col">Địa chỉ</th>
-              <th scope="col">Ngày sinh</th>
-              <th scope="col">Giới tính</th>
-              <th scope="col">Số điện thoại</th>
-              <th scope="col">Nhóm</th>
-              <th scope="col">Xóa</th>
-              <th scope="col">công việc</th>
-            </tr>
-          </thead>
-          <tbody>
-          <?php
-              //lấy dữ liệu từ CSDL và để ra bảng (phần lặp lại)
-              //bước 1:kết nối tời csdl(mysql)
-              include('../config/db.php');
+                });
+              });
 
-              //bước 2 khai báo câu lệnh thực thi và thực hiện truy vấn
-              $sql = "SELECT * FROM infor_users a, users b, group_users c where a.userid=b.userid and a.group_id=c.group_id";
-              $result = mysqli_query($conn,$sql);
-
-              //bước 3 xử lý kết quả trả về
-              if(mysqli_num_rows($result) > 0){
-                  $i=1;
-                  while($row = mysqli_fetch_assoc($result)){
-          ?>
-            <tr>
-            <th scope="row"><?php echo $i; ?> </th>
-              <td><?php echo $row['first_name']; ?> <?php echo $row['last_name']; ?> </td>
-              <td><?php echo $row['age']; ?> </td>
-              <td><?php echo $row['address']; ?> </td>
-              <td><?php echo $row['date']; ?> </td>
-              <td><?php echo $row['gender']; ?> </td>
-              <td><?php echo $row['phone_number']; ?> </td>
-              <td><?php echo $row['group_name']; ?> </td>
-              <td><a href="./process_users/delete_users.php?infor_id=<?php echo $row['infor_id']; ?>"><i class="fas fa-trash"></i></a></td>
-              <td><a href="./process_users/calender_user.php?email=<?php echo $row['email']; ?>"><i class="fas fa-plus-square"></i></a></td>
-            </tr>
-            <?php
-              $i++;
-                  }
-              }
-              ?>
-            </tbody>
-          </table>
-        </div>
+          function displayMessage(message) {
+            $(".response").html("<div class='success'>"+message+"</div>");
+              setInterval(function() { $(".success").fadeOut(); }, 1000);
+          }
+          </script>
+            <div class="response"></div>
+            <div id='calendar'></div>
+            <!-- <div class="d-flex justify-content-center">
+              <a href="send_mail.php?email= ?php echo $email ?>" class="btn btn-success" style="margin-top: 50px;">Gửi email</a>
+            </div> -->
+            
       </div>
-      </div>
+    </div>
     </div>
     <div class="container">
       <div class="row">
@@ -297,19 +351,9 @@
         </footer>
       </div>
     </div>
-    
-    
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
-      <!-- Optional JavaScript; choose one of the two! -->
-
-      <!-- Option 1: Bootstrap Bundle with Popper -->
-      <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
-
-      <!-- Option 2: Separate Popper and Bootstrap JS -->
-      <!--
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-      -->
   </div>
-  </body>
+</body>
+
+
 </html>
